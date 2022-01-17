@@ -1,0 +1,11 @@
+C:\Users\THIENPHUC\source\repos\Cerana\BUS\bin\Debug\BUS.dll
+C:\Users\THIENPHUC\source\repos\Cerana\BUS\bin\Debug\BUS.pdb
+C:\Users\THIENPHUC\source\repos\Cerana\BUS\bin\Debug\DAO.dll
+C:\Users\THIENPHUC\source\repos\Cerana\BUS\bin\Debug\DTO.dll
+C:\Users\THIENPHUC\source\repos\Cerana\BUS\bin\Debug\DAO.pdb
+C:\Users\THIENPHUC\source\repos\Cerana\BUS\bin\Debug\DTO.pdb
+C:\Users\THIENPHUC\source\repos\Cerana\BUS\obj\Debug\BUS.csprojAssemblyReference.cache
+C:\Users\THIENPHUC\source\repos\Cerana\BUS\obj\Debug\BUS.csproj.CoreCompileInputs.cache
+C:\Users\THIENPHUC\source\repos\Cerana\BUS\obj\Debug\BUS.csproj.CopyComplete
+C:\Users\THIENPHUC\source\repos\Cerana\BUS\obj\Debug\BUS.dll
+C:\Users\THIENPHUC\source\repos\Cerana\BUS\obj\Debug\BUS.pdb

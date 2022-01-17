@@ -1,0 +1,168 @@
+﻿<Window x:Class="Cerana.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cerana"
+        xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+        mc:Ignorable="d"
+        Title="Quản Lý Học Sinh" Height="500" Width="900">
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Left" Width="70" Background="{StaticResource BackgroundBrush}"
+                    >
+            <Button DockPanel.Dock="Top" Margin="5" Padding="0" Height="50" Width="50"
+                    Style="{DynamicResource MaterialDesignFlatButton}"
+                    Name="HomeButton" Click="HomeButton_Click" ToolTip="Trang chủ">
+                <wpf:PackIcon Kind="Home" Width="40" Height="40"
+                              Foreground="{StaticResource PrimaryHueDarkBrush}"/>
+            </Button>
+            <Button DockPanel.Dock="Top" Margin="5" Padding="0" Height="50" Width="50"
+                    Style="{DynamicResource MaterialDesignFlatButton}"
+                    Name="StudentButton" Click="StudentButton_Click" ToolTip="Học sinh">
+                <wpf:PackIcon Kind="ClipboardPerson" Width="40" Height="40"
+                              Foreground="{StaticResource PrimaryHueDarkBrush}"/>
+            </Button>
+            <Button DockPanel.Dock="Top" Margin="5" Padding="0" Height="50" Width="50"
+                    Style="{DynamicResource MaterialDesignFlatButton}"
+                    Name="ClassButton" Click="ClassButton_Click" ToolTip="Lớp học">
+                <wpf:PackIcon Kind="UserGroup" Width="40" Height="40"
+                              Foreground="{StaticResource PrimaryHueDarkBrush}"/>
+            </Button>
+            <Button DockPanel.Dock="Top" Margin="5" Padding="0" Height="50" Width="50"
+                    Style="{DynamicResource MaterialDesignFlatButton}"
+                    Name="TuitionButton" Click="TuitionButton_Click" ToolTip="Học phí">
+                <wpf:PackIcon Kind="ChartLine" Width="40" Height="40"
+                              Foreground="{StaticResource PrimaryHueDarkBrush}"/>
+            </Button>
+            <Button DockPanel.Dock="Bottom" Margin="5" Padding="0" Height="50" Width="50"
+                    Style="{DynamicResource MaterialDesignFlatButton}"
+                    Name="SettingButton" Click="SettingButton_Click" ToolTip="Cài đặt">
+                <wpf:PackIcon Kind="Settings" Width="40" Height="40"
+                              Foreground="{StaticResource PrimaryHueDarkBrush}"/>
+            </Button>
+            <StackPanel></StackPanel>
+        </DockPanel>
+        <TabControl x:Name="AppTabControl">
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </Style>
+            </TabControl.ItemContainerStyle>
+            <TabItem Name="HomePage">
+                <StackPanel>
+                    <Label>Trang Chủ</Label>
+                    <Label>(Phần giao diện này đang được phát triển)</Label>
+                    <Label>Tổng số học sinh: 0</Label>
+                    <Label>Tổng số học sinh đang học: 0</Label>
+                    <Button Width="50" HorizontalAlignment="Left" Padding="0" ToolTip="Làm mới">
+                        <wpf:PackIcon Kind="Refresh"/>
+                    </Button>
+
+                </StackPanel>
+            </TabItem>
+            <TabItem Name="StudentPage" IsSelected="True">
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Right" Width="200">
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="30"
+                                    HorizontalAlignment="Right">
+                        </StackPanel>
+                        <TextBlock DockPanel.Dock="Top" TextAlignment="Center" FontSize="14" 
+                                    FontWeight="SemiBold" Margin="0,10">
+                                THÔNG TIN HỌC SINH
+                        </TextBlock>
+                        <Button x:Name="SaveHocSinhButton" Click="SaveHocSinhButton_Click" DockPanel.Dock="Bottom" Width="70" Margin="5">Lưu</Button>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel Margin="5">
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Mã Học Sinh</Label>
+                                <TextBox x:Name="StudentCodeTextBox" wpf:HintAssist.Hint="Mã học sinh" IsEnabled="False"
+                                         DataContext="{Binding ElementName=HocSinhDataGrid, Path=SelectedItem}" Text="{Binding MaHS}"/>
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Họ Lót</Label>
+                                <TextBox x:Name="StudentLastNameTextBox" wpf:HintAssist.Hint="Nhập họ và tên lót"
+                                         DataContext="{Binding ElementName=HocSinhDataGrid, Path=SelectedItem}" Text="{Binding HoLot}"/>
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5" >Tên Học Sinh</Label>
+                                <TextBox LostFocus="StudentFirstNameTextBox_LostFocus" x:Name="StudentFirstNameTextBox" wpf:HintAssist.Hint="Nhập tên"
+                                         DataContext="{Binding ElementName=HocSinhDataGrid, Path=SelectedItem}" Text="{Binding Ten}"></TextBox>
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Số Điện Thoại Học Sinh</Label>
+                                <TextBox x:Name="StudentPhoneNumberTxtBox" wpf:HintAssist.Hint="Nhập sđt học sinh"
+                                        LostFocus="StudentPhoneNumberTxtBox_LostFocus" DataContext="{Binding ElementName=HocSinhDataGrid, Path=SelectedItem}" Text="{Binding SdtHocSinh}"></TextBox>
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Số Điện Thoại Phụ Huynh</Label>
+                                <TextBox x:Name="ParentPhoneNumberTxtBox" wpf:HintAssist.Hint="Nhập sđt phụ huynh"
+                                        LostFocus="ParentPhoneNumberTxtBox_LostFocus" DataContext="{Binding ElementName=HocSinhDataGrid, Path=SelectedItem}" Text="{Binding SdtPhuHuynh}"></TextBox>
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Lớp</Label>
+                                <TextBox x:Name="ClassNameTextBox" wpf:HintAssist.Hint="Nhập lớp"
+                                         DataContext="{Binding ElementName=HocSinhDataGrid, Path=SelectedItem}" Text="{Binding Lop}"></TextBox>
+                                <CheckBox x:Name="VerifiedPhoneCheckbox" Margin="0, 5"
+                                          DataContext="{Binding ElementName=HocSinhDataGrid, Path=SelectedItem}" IsChecked="{Binding XacNhanSDT}">Xác nhận số điện thoại</CheckBox>
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Niên Khóa</Label>
+                                <TextBox x:Name="YearTextBox" wpf:HintAssist.Hint="Ví dụ: 2021-2022"
+                                         DataContext="{Binding ElementName=HocSinhDataGrid, Path=SelectedItem}" Text="{Binding NienKhoa}"></TextBox>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </DockPanel>
+                    <DockPanel>
+                        <DockPanel DockPanel.Dock="Top" Height="50" >
+                            <ComboBox Name="FindByComboBox" DockPanel.Dock="Right" Width="200" Height="30" Margin="5" VerticalAlignment="Center">
+                                <ComboBoxItem IsSelected="True">Tìm theo tên</ComboBoxItem>
+                                <ComboBoxItem>Tìm theo sđt học sinh</ComboBoxItem>
+                                <ComboBoxItem>Tìm theo sđt phụ huynh</ComboBoxItem>
+                            </ComboBox>
+                            <TextBox Name="SearchTextBox"  Height="30" Margin="5" VerticalAlignment="Center"
+                                     wpf:HintAssist.Hint="Tìm kiếm học sinh"
+                                     KeyDown="SearchTextBox_KeyDown"></TextBox>
+                        </DockPanel>
+                        <DataGrid x:Name="HocSinhDataGrid" AutoGenerateColumns="False" SelectionMode="Single" MouseLeftButtonDown="HocSinhDataGrid_Unselected">
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn  Header="Chọn">
+                                </DataGridCheckBoxColumn>
+                                <DataGridTextColumn Header="Họ Lót" Binding="{Binding HoLot}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Tên" Binding="{Binding Ten}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="SĐT Học Sinh" Binding="{Binding SdtHocSinh}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="SĐT Phụ Huynh" Binding="{Binding SdtPhuHuynh}" IsReadOnly="True"/>
+                                <DataGridTemplateColumn Header="Xác Nhận SĐT" IsReadOnly="True">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding XacNhanSDT}" IsEnabled="False"></CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Lớp" Binding="{Binding Lop}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Niên Khóa" Binding="{Binding NienKhoa}" IsReadOnly="True"/>
+                                </DataGrid.Columns>
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Name="DangKyMenuItem" Header="Đăng ký lớp học" Click="DangKyMenuItem_Click"/>
+                                    <MenuItem Name="QuanLyLopMenuItem" Header="Lớp đã đăng ký" Click="QuanLyLopMenuItem_Click"/>
+                                    <MenuItem Name="DongHocPhiMenuItem" Header="Đóng học phí" Click="DongHocPhiMenuItem_Click"/>
+                                    <MenuItem Foreground="Red" Name="XoaHocSinhMenuItem" Header="Xóa học sinh" Click="XoaHocSinhMenuItem_Click"/>
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                    </DockPanel>
+                </DockPanel>
+            </TabItem>
+            <TabItem Name="ClassPage">
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Right" Width="200">
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="30"
+                                    HorizontalAlignment="Right">
+                        </StackPanel>
+                        <TextBlock DockPanel.Dock="Top" TextAlignment="Center" FontSize="14" 
+                                    FontWeight="SemiBold" Margin="0,10">
+                                THÔNG TIN LỚP HỌC
+                        </TextBlock>
+                        <Button x:Name="SaveLopButton" Click="SaveLopButton_Click" DockPanel.Dock="Bottom" Width="70" Margin="5">Lưu</Button>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        </ScrollViewer>
+                    </DockPanel>
+                    <Label>Lớp học</Label>
+                </DockPanel>
+            </TabItem>
+            <TabItem Name="TuitionPage">
+                <DockPanel>
+                    <Label>Học phí</Label>
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+
+</Window>
