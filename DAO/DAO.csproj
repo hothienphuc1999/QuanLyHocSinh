@@ -43,7 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataConnection.cs" />
+    <Compile Include="GiaoVienDAO.cs" />
     <Compile Include="HocSinhDAO.cs" />
+    <Compile Include="LopHocDangKyDAO.cs" />
+    <Compile Include="LopHocDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

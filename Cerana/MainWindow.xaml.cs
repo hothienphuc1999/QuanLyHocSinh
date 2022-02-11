@@ -38,6 +38,8 @@ namespace Cerana
 
         }
 
+
+
         private void ClassButton_Click(object sender, RoutedEventArgs e)
         {
             AppTabControl.SelectedIndex = 2;
@@ -191,7 +193,7 @@ namespace Cerana
                 string ten = StudentFirstNameTextBox.Text;
                 string sdthocsinh = StudentPhoneNumberTxtBox.Text;
                 string sdtphuhuynh = ParentPhoneNumberTxtBox.Text;
-                string lop = ClassNameTextBox.Text;
+                string lop = ClassTextBox.Text;
                 string nienkhoa = YearTextBox.Text;
                 bool xacnhan = (bool)VerifiedPhoneCheckbox.IsChecked;
 
@@ -241,7 +243,107 @@ namespace Cerana
 
         private void SaveLopButton_Click(object sender, RoutedEventArgs e)
         {
+            string tenlh = ClassNameTextBox.Text;
+            string nienkhoa = ClassYearTextBox.Text;
+            int magv = (TeacherOfClassCBB.SelectedItem as GiaoVienDTO).MaGiaoVien;
+            if (ClassCodeTextBox.Text == "")
+            {
+                LopHocDTO lophoc = new LopHocDTO(-1,tenlh,magv,nienkhoa,null,null,null,null);
+                int result = LopHocBUS.CreateLopHoc(lophoc);
+                MessageBox.Show($"{result} lớp học đã được thêm");
+            }
+            else
+            {
+                int malh = int.Parse(ClassCodeTextBox.Text);
+                LopHocDTO lophoc = new LopHocDTO(malh, tenlh, magv, nienkhoa, null, null, null, null);
+                int result = LopHocBUS.UpdateLopHoc(lophoc);
+                MessageBox.Show($"{result} lớp học đã được cập nhật");
+            }    
+        }
 
+        private void LoadGiaoVien()
+        {
+            List<GiaoVienDTO> giaoVien = GiaoVienBUS.LoadAllGiaoVien();
+            TeacherComboBox.ItemsSource = giaoVien;
+        }
+
+        private void LoadLopHocOfGiaoVienWithNienKhoa(int magv, string nienkhoa)
+        {
+            List<LopHocDTO> lophoc = LopHocBUS.FindLopHocByIDGiaoVienWithNienKhoa(magv, nienkhoa);
+            ClassComboBox.ItemsSource = lophoc;
+        }
+
+        private void LoadNienKhoa(int magv)
+        {
+            List<string> nienkhoa = LopHocBUS.GetAllNienKhoaInLopHoc(magv);
+            YearComboBox.ItemsSource = nienkhoa;
+        }
+
+        private void TeacherComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadGiaoVien();
+        }
+
+        private void TeacherComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GiaoVienDTO giaovien = TeacherComboBox.SelectedItem as GiaoVienDTO;
+            YearComboBox.SelectedIndex = -1;
+            if (giaovien != null)
+            {
+                LoadNienKhoa(giaovien.MaGiaoVien);
+            }
+            else
+            {
+                YearComboBox.ItemsSource = null;
+            }
+        }
+
+        private void YearComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GiaoVienDTO giaovien = TeacherComboBox.SelectedItem as GiaoVienDTO;
+            string nienkhoa = YearComboBox.SelectedItem as string;
+            if (nienkhoa != null && giaovien != null)
+            {
+                LoadLopHocOfGiaoVienWithNienKhoa(giaovien.MaGiaoVien, nienkhoa);
+            }
+            else
+            {
+                ClassComboBox.ItemsSource = null;
+            }
+        }
+
+        private void ClassComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LopHocDTO lophoc = ClassComboBox.SelectedItem as LopHocDTO;
+            DateTime month = MonthPicker.SelectedDate.Value.Date;
+            if (lophoc != null)
+            {
+                List<LopHocDangKyDTO> result = LopHocDangKyBUS.FindLopHocDangKyByIDLopHoc(lophoc.MaLopHoc, month);
+                StudyAssignDataGrid.ItemsSource = result;
+            }
+        }
+
+        private void MonthPicker_Loaded(object sender, RoutedEventArgs e)
+        {
+            MonthPicker.SelectedDate = DateTime.Now;
+        }
+
+        private void AddClassButton_Click(object sender, RoutedEventArgs e)
+        {
+            ClassComboBox.SelectedIndex = -1;
+        }
+
+        private void DeleteClassButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ClassCodeTextBox.Text != "")
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("Bạn có chắc chắn muốn xóa lớp học này?", "Xóa lớp học", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    int result = LopHocBUS.DeleteLopHoc(int.Parse(ClassCodeTextBox.Text));
+                    MessageBox.Show($"{result} lớp học đã xóa");
+                }    
+            }
         }
     }
 }

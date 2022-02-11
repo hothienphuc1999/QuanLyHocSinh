@@ -26,3 +26,11 @@ C:\Users\THIENPHUC\source\repos\Cerana\Cerana\bin\Debug\DTO.dll
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\bin\Debug\BUS.pdb
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\bin\Debug\DAO.pdb
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\bin\Debug\DTO.pdb
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\GiaoVien.g.cs
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\LichHoc.g.cs
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\LichNghi.g.cs
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\LopHocDangKy.g.cs
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\GiaoVien.baml
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\LichHoc.baml
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\LichNghi.baml
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\LopHocDangKy.baml

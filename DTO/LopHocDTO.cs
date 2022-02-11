@@ -10,7 +10,6 @@ namespace DTO
     {
         private int _maLopHoc;
         private string _tenLopHoc;
-        private int _khoi;
         private int _maGiaoVien;
         private string _nienKhoa;
         private GiaoVienDTO _giaovien;
@@ -18,11 +17,10 @@ namespace DTO
         private List<GioHocDTO> _cacGioHoc;
         private List<GioHocKhacDTO> _cacGioHocKhac;
 
-        public LopHocDTO(int maLopHoc, string tenLopHoc, int khoi, int maGiaoVien, string nienKhoa, GiaoVienDTO giaovien, List<LopHocDangKyDTO> cacLopHocDangKy, List<GioHocDTO> cacGioHoc, List<GioHocKhacDTO> cacGioHocKhac)
+        public LopHocDTO(int maLopHoc, string tenLopHoc, int maGiaoVien, string nienKhoa, GiaoVienDTO giaovien, List<LopHocDangKyDTO> cacLopHocDangKy, List<GioHocDTO> cacGioHoc, List<GioHocKhacDTO> cacGioHocKhac)
         {
             _maLopHoc = maLopHoc;
             _tenLopHoc = tenLopHoc;
-            _khoi = khoi;
             _maGiaoVien = maGiaoVien;
             _nienKhoa = nienKhoa;
             _giaovien = giaovien;
@@ -33,7 +31,6 @@ namespace DTO
 
         public int MaLopHoc { get => _maLopHoc; set => _maLopHoc = value; }
         public string TenLopHoc { get => _tenLopHoc; set => _tenLopHoc = value; }
-        public int Khoi { get => _khoi; set => _khoi = value; }
         public int MaGiaoVien { get => _maGiaoVien; set => _maGiaoVien = value; }
         public string NienKhoa { get => _nienKhoa; set => _nienKhoa = value; }
         public GiaoVienDTO Giaovien { get => _giaovien; set => _giaovien = value; }

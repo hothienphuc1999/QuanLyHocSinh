@@ -1,0 +1,6 @@
+C:\Users\THIENPHUC\source\repos\Cerana\DTO\bin\Release\DTO.dll
+C:\Users\THIENPHUC\source\repos\Cerana\DTO\bin\Release\DTO.pdb
+C:\Users\THIENPHUC\source\repos\Cerana\DTO\obj\Release\DTO.csprojAssemblyReference.cache
+C:\Users\THIENPHUC\source\repos\Cerana\DTO\obj\Release\DTO.csproj.CoreCompileInputs.cache
+C:\Users\THIENPHUC\source\repos\Cerana\DTO\obj\Release\DTO.dll
+C:\Users\THIENPHUC\source\repos\Cerana\DTO\obj\Release\DTO.pdb

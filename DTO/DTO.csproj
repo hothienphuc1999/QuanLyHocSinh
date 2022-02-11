@@ -47,7 +47,6 @@
     <Compile Include="GioHocDTO.cs" />
     <Compile Include="GioHocKhacDTO.cs" />
     <Compile Include="HocPhiDTO.cs" />
-    <Compile Include="HocPhiMienGiamDTO.cs" />
     <Compile Include="HocPhiNoDTO.cs" />
     <Compile Include="HocSinhDTO.cs" />
     <Compile Include="LopHocDangKyDTO.cs" />

@@ -63,6 +63,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="GiaoVien.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LichHoc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LichNghi.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LopHocDangKy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -70,6 +86,18 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GiaoVien.xaml.cs">
+      <DependentUpon>GiaoVien.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LichHoc.xaml.cs">
+      <DependentUpon>LichHoc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LichNghi.xaml.cs">
+      <DependentUpon>LichNghi.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LopHocDangKy.xaml.cs">
+      <DependentUpon>LopHocDangKy.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

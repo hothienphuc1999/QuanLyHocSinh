@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,7 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GiaoVienBUS.cs" />
+    <Compile Include="Helper\BoolToStateConverter.cs" />
+    <Compile Include="Helper\CurrencyFormatting.cs" />
     <Compile Include="HocSinhBUS.cs" />
+    <Compile Include="LopHocBUS.cs" />
+    <Compile Include="LopHocDangKyBUS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

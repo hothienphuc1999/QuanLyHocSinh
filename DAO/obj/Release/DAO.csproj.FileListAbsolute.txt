@@ -1,0 +1,9 @@
+C:\Users\THIENPHUC\source\repos\Cerana\DAO\bin\Release\DAO.dll
+C:\Users\THIENPHUC\source\repos\Cerana\DAO\bin\Release\DAO.pdb
+C:\Users\THIENPHUC\source\repos\Cerana\DAO\bin\Release\DTO.dll
+C:\Users\THIENPHUC\source\repos\Cerana\DAO\bin\Release\DTO.pdb
+C:\Users\THIENPHUC\source\repos\Cerana\DAO\obj\Release\DAO.csprojAssemblyReference.cache
+C:\Users\THIENPHUC\source\repos\Cerana\DAO\obj\Release\DAO.csproj.CoreCompileInputs.cache
+C:\Users\THIENPHUC\source\repos\Cerana\DAO\obj\Release\DAO.csproj.CopyComplete
+C:\Users\THIENPHUC\source\repos\Cerana\DAO\obj\Release\DAO.dll
+C:\Users\THIENPHUC\source\repos\Cerana\DAO\obj\Release\DAO.pdb

@@ -176,6 +176,44 @@ namespace DAO
             }
             return result;
         }
+        static public HocSinhDTO SearchHocSinhByID(int mahs)
+        {
+            DataConnection dataConnection = new DataConnection();
+            HocSinhDTO result = null;
+            try
+            {
+                dataConnection.Connect();
+                DataTable dt = dataConnection.Select(
+                    CommandType.StoredProcedure,
+                    "usp_search_hocsinh_by_id",
+                    new SqlParameter { ParameterName = "@mahs", Value = mahs });
+                if (dt != null)
+                {
+                    foreach (DataRow r in dt.Rows)
+                    {
+                        result = new HocSinhDTO(
+                            (int)r["MaHS"],
+                            r["HoLot"].ToString(),
+                            r["Ten"].ToString(),
+                            r["SDTHocSinh"].ToString(),
+                            r["SDTPhuHuynh"].ToString(),
+                            r["Lop"].ToString(),
+                            r["NienKhoa"].ToString(),
+                            (bool)r["XacNhanSDT"],
+                            null);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                dataConnection.Disconnect();
+            }
+            return result;
+        }
         static public int CreateHocSinh(HocSinhDTO hocsinh)
         {
             DataConnection dataConnection = new DataConnection();

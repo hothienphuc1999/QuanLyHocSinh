@@ -10,7 +10,7 @@ namespace DAO
 {
     public class DataConnection
     {
-        static string ConnectionString = @"Server=DESKTOP-M3RI2IA\SQLEXPRESS; Database=QuanLyHocSinh; Trusted_Connection=True;";
+        static string ConnectionString = @"Server=.\SQLEXPRESS; Database=QuanLyHocSinh; Trusted_Connection=True;";
         private SqlConnection connection;
         public SqlConnection Connection { get => connection; set => connection = value; }
         public DataConnection()
