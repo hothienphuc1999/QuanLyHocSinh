@@ -7,7 +7,7 @@
         xmlns:helper="clr-namespace:BUS.Helper;assembly=BUS"
         xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
         mc:Ignorable="d"
-        Title="Quản Lý Học Sinh" Height="500" Width="900">
+        Title="Quản Lý Học Sinh - v0.1.3" Height="500" Width="900">
 
     <Window.Resources>
         <helper:BoolToStateConverter x:Key="boolToStateConverter"/>

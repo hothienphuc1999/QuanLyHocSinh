@@ -16,7 +16,6 @@ C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\GUI.csprojAssemblyRefe
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\GiaoVien.g.cs
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\LichHoc.g.cs
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\LichNghi.g.cs
-C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\LopHocDangKy.g.cs
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\MainWindow.g.cs
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\App.g.cs
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\Cerana_MarkupCompile.cache
@@ -25,7 +24,6 @@ C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\App.baml
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\GiaoVien.baml
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\LichHoc.baml
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\LichNghi.baml
-C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\LopHocDangKy.baml
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\MainWindow.baml
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\Cerana.g.resources
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\Cerana.Properties.Resources.resources
@@ -34,3 +32,13 @@ C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\GUI.csproj.CoreCompile
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\GUI.csproj.CopyComplete
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\Cerana.exe
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\Cerana.pdb
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\LopHocDangKy\ChuyenLop.g.cs
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\LopHocDangKy\ChuyenTrangThaiHoc.g.cs
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\LopHocDangKy\DangKyLopHoc.g.cs
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\LopHocDangKy\LopHocDaDangKy.g.cs
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\LopHocDangKy\MienGiam.g.cs
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\LopHocDangKy\ChuyenLop.baml
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\LopHocDangKy\ChuyenTrangThaiHoc.baml
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\LopHocDangKy\DangKyLopHoc.baml
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\LopHocDangKy\LopHocDaDangKy.baml
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\LopHocDangKy\MienGiam.baml
