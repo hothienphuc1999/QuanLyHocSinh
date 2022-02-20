@@ -1,0 +1,41 @@
+﻿<Window x:Class="Cerana.LopHocDangKy.ChuyenLop"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cerana.LopHocDangKy"
+        mc:Ignorable="d"
+        Title="Chuyển Lớp" Height="250" Width="300">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Margin="5" Width="70" Content="Lưu"
+                    Name="SaveButton" Click="SaveButton_Click"/>
+            <Button Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Width="70" Content="Hủy" 
+                    IsCancel="True" Name="CancelButton" Click="CancelButton_Click"/>
+        </StackPanel>
+        <StackPanel>
+            <DockPanel Margin="5" Height="30">
+                <DatePicker Name="NgayCLDatePicker" Loaded="NgayCLDatePicker_Loaded" Width="150" DockPanel.Dock="Right"></DatePicker>
+                <TextBlock VerticalAlignment="Center">Ngày chuyển lớp</TextBlock>
+            </DockPanel>
+            <ComboBox Name="TeacherComboBox" Margin="5" Loaded="TeacherComboBox_Loaded"  SelectionChanged="TeacherComboBox_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="5 0" Text="{Binding DanhXung}"></TextBlock>
+                            <TextBlock Text="{Binding TenGiaoVien}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <ComboBox Name="YearComboBox" Margin="5" SelectionChanged="YearComboBox_SelectionChanged"></ComboBox>
+            <ComboBox Name="ClassComboBox" Margin="5" SelectionChanged="ClassComboBox_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding TenLopHoc, StringFormat='Lớp: {0}'}"></TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+    </DockPanel>
+</Window>

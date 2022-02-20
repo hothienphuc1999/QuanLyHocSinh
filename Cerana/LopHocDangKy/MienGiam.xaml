@@ -1,0 +1,21 @@
+﻿<Window x:Class="Cerana.MienGiam"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cerana"
+        mc:Ignorable="d"
+        Title="Trạng Thái" Height="150" Width="300">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Margin="5" Width="70" Content="Lưu"
+                    Name="SaveButton" Click="SaveButton_Click"/>
+            <Button Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Width="70" Content="Hủy" 
+                    IsCancel="True" Name="CancelButton" Click="CancelButton_Click"/>
+        </StackPanel>
+        <DockPanel Margin="5" Height="30">
+            <TextBox Name="MienGiamTextBox" Width="150" DockPanel.Dock="Right"></TextBox>
+            <TextBlock VerticalAlignment="Center">Miễn giảm</TextBlock>
+        </DockPanel>
+    </DockPanel>
+</Window>

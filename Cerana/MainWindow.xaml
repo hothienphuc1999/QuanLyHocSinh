@@ -8,7 +8,7 @@
         xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
         mc:Ignorable="d"
         Title="Quản Lý Học Sinh" Height="500" Width="900">
-        
+
     <Window.Resources>
         <helper:BoolToStateConverter x:Key="boolToStateConverter"/>
         <helper:CurrencyFormatting x:Key="currencyFormatting"/>
@@ -129,7 +129,7 @@
                                 </DataGridTemplateColumn>
                                 <DataGridTextColumn Header="Lớp" Binding="{Binding Lop}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Niên Khóa" Binding="{Binding NienKhoa}" IsReadOnly="True"/>
-                                </DataGrid.Columns>
+                            </DataGrid.Columns>
                             <DataGrid.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem Name="DangKyMenuItem" Header="Đăng ký lớp học" Click="DangKyMenuItem_Click"/>
@@ -172,6 +172,9 @@
                                 <Label FontWeight="DemiBold" Margin="0,10,0,5">Niên Khóa</Label>
                                 <TextBox x:Name="ClassYearTextBox" wpf:HintAssist.Hint="Ví dụ: 2021-2022"
                                          DataContext="{Binding ElementName=ClassComboBox, Path=SelectedItem}" Text="{Binding NienKhoa}"/>
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Học Phí Lớp Học</Label>
+                                <TextBox x:Name="PriceTextBox" wpf:HintAssist.Hint="Học Phí Lớp Học"
+                                         DataContext="{Binding ElementName=ClassComboBox, Path=SelectedItem}" Text="{Binding HocPhiLopHoc}"/>
                                 <Label FontWeight="DemiBold" Margin="0,10,0,5">Giáo Viên</Label>
                                 <ComboBox Name="TeacherOfClassCBB" ItemsSource="{Binding ElementName=TeacherComboBox, Path=ItemsSource}"
                                           SelectedIndex="{Binding ElementName=TeacherComboBox, Path=SelectedIndex, Mode=OneWay}">
@@ -214,9 +217,10 @@
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
-                            <!--<Button Style="{DynamicResource MaterialDesignFlatButton}" Margin="5 0" ToolTip="Làm mới">
+                            <Button Style="{DynamicResource MaterialDesignFlatButton}" Margin="5 0" ToolTip="Làm mới"
+                                    Name="RefreshAssignButton" Click="RefreshAssignButton_Click">
                                 <wpf:PackIcon Kind="Refresh"></wpf:PackIcon>
-                            </Button>-->
+                            </Button>
                         </StackPanel>
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
                             <TextBlock Margin="5 0" FontWeight="DemiBold" Text="{Binding ElementName=StudyAssignDataGrid, Path=ItemsSource.Count, StringFormat='Sỉ số: {0}'}"/>
@@ -228,22 +232,23 @@
                                 <DataGridTextColumn  Header="Tên" Binding="{Binding Hocsinh.Ten}" IsReadOnly="True"/>
                                 <DataGridTextColumn  Header="Học Phí" Binding="{Binding SoTienDong, Converter={StaticResource currencyFormatting}}" IsReadOnly="True"/>
                                 <DataGridTextColumn  Header="Học Phí Nợ" Binding="{Binding SoTienNo, Converter={StaticResource currencyFormatting}}" IsReadOnly="True"/>
-                                <DataGridTextColumn  Header="Tình trạng" Binding="{Binding TinhTrang,Converter={StaticResource boolToStateConverter}}" IsReadOnly="True"/>
+                                <DataGridTextColumn  Header="Trạng thái" Binding="{Binding TinhTrang,Converter={StaticResource boolToStateConverter}}" IsReadOnly="True"/>
                                 <DataGridTextColumn  Header="Miễn giảm" Binding="{Binding Miengiam}" IsReadOnly="True"/>
-
                             </DataGrid.Columns>
                             <DataGrid.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="Thêm học sinh"></MenuItem>
+                                    <MenuItem Header="Thêm học sinh" Name="ThemLopHocMenuItem" Click="ThemLopHocMenuItem_Click"></MenuItem>
                                     <MenuItem Header="Chuyển trạng thái">
-                                        <MenuItem Header="Nghỉ luôn"></MenuItem>
-                                        <MenuItem Header="Đang học"></MenuItem>
+                                        <MenuItem Header="Nghỉ luôn" Name="SetIsNghiLuon" Click="SetIsNghiLuon_Click"></MenuItem>
+                                        <MenuItem Header="Đang học" Name="SetIsDangHoc" Click="SetIsDangHoc_Click"></MenuItem>
                                     </MenuItem>
                                     <MenuItem Header="Điểm danh">
                                         <MenuItem Header="Các học sinh đã chọn"/>
                                         <MenuItem Header="Tất cả học sinh"/>
                                     </MenuItem>
-                                    <MenuItem Header="Xóa vĩnh viễn" Foreground="Red"></MenuItem>
+                                    <MenuItem Header="Chuyển lớp" Name="ChuyenLop" Click="ChuyenLop_Click"></MenuItem>
+                                    <MenuItem Header="Miễn giảm" Name="MienGiam" Click="MienGiam_Click"></MenuItem>
+                                    <MenuItem Header="Xóa vĩnh viễn" Name="XoaDangKy" Click="XoaDangKy_Click" Foreground="Red"></MenuItem>
                                 </ContextMenu>
                             </DataGrid.ContextMenu>
                         </DataGrid>

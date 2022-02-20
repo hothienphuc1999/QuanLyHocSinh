@@ -1,4 +1,5 @@
 ﻿using BUS;
+using Cerana.LopHocDangKy;
 using DTO;
 using System;
 using System.Collections.Generic;
@@ -37,8 +38,6 @@ namespace Cerana
             AppTabControl.SelectedIndex = 1;
 
         }
-
-
 
         private void ClassButton_Click(object sender, RoutedEventArgs e)
         {
@@ -160,7 +159,12 @@ namespace Cerana
 
         private void QuanLyLopMenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            HocSinhDTO selected = HocSinhDataGrid.SelectedItem as HocSinhDTO;
+            if (selected != null)
+            {
+                LopHocDangKy.LopHocDaDangKy dangkys = new LopHocDaDangKy(selected.MaHS);
+                dangkys.Show();
+            }
         }
 
         private void XoaHocSinhMenuItem_Click(object sender, RoutedEventArgs e)
@@ -245,20 +249,21 @@ namespace Cerana
         {
             string tenlh = ClassNameTextBox.Text;
             string nienkhoa = ClassYearTextBox.Text;
+            string hocphilophoc = PriceTextBox.Text;
             int magv = (TeacherOfClassCBB.SelectedItem as GiaoVienDTO).MaGiaoVien;
             if (ClassCodeTextBox.Text == "")
             {
-                LopHocDTO lophoc = new LopHocDTO(-1,tenlh,magv,nienkhoa,null,null,null,null);
+                LopHocDTO lophoc = new LopHocDTO(-1, tenlh, magv, hocphilophoc, nienkhoa, null, null, null, null);
                 int result = LopHocBUS.CreateLopHoc(lophoc);
                 MessageBox.Show($"{result} lớp học đã được thêm");
             }
             else
             {
                 int malh = int.Parse(ClassCodeTextBox.Text);
-                LopHocDTO lophoc = new LopHocDTO(malh, tenlh, magv, nienkhoa, null, null, null, null);
+                LopHocDTO lophoc = new LopHocDTO(malh, tenlh, magv, hocphilophoc, nienkhoa, null, null, null, null);
                 int result = LopHocBUS.UpdateLopHoc(lophoc);
                 MessageBox.Show($"{result} lớp học đã được cập nhật");
-            }    
+            }
         }
 
         private void LoadGiaoVien()
@@ -342,8 +347,117 @@ namespace Cerana
                 {
                     int result = LopHocBUS.DeleteLopHoc(int.Parse(ClassCodeTextBox.Text));
                     MessageBox.Show($"{result} lớp học đã xóa");
-                }    
+                }
             }
+        }
+
+        private void ThemLopHocMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (ClassComboBox.SelectedIndex != -1)
+            {
+                int malophoc = (ClassComboBox.SelectedItem as LopHocDTO).MaLopHoc;
+                DangKyLopHoc lopHocDangKy = new DangKyLopHoc(malophoc);
+                lopHocDangKy.Show();
+            }
+        }
+
+        private void XoaDangKy_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show(
+                "Bạn có chắc chắn muốn xóa các học sinh đang đánh dấu chọn? \n" +
+                "Toàn bộ dữ liệu liên quan đến học sinh sẽ bị mất!",
+                "Cảnh báo", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            if (messageBoxResult == MessageBoxResult.OK)
+            {
+                int rowAffected = 0;
+                for (int i = 0; i < StudyAssignDataGrid.Items.Count; i++)
+                {
+                    var item = StudyAssignDataGrid.Items[i];
+                    var mycheckbox = StudyAssignDataGrid.Columns[0].GetCellContent(item) as CheckBox;
+                    if ((bool)mycheckbox.IsChecked)
+                    {
+                        rowAffected += LopHocDangKyBUS.DeleteLopHocDangKy(((LopHocDangKyDTO)item).MaDangKy);
+                    }
+                }
+                MessageBox.Show($"{rowAffected} học sinh đã được xóa");
+            }
+        }
+
+        private void RefreshAssignButton_Click(object sender, RoutedEventArgs e)
+        {
+            LopHocDTO lophoc = ClassComboBox.SelectedItem as LopHocDTO;
+            DateTime month = MonthPicker.SelectedDate.Value.Date;
+            if (lophoc != null)
+            {
+                List<LopHocDangKyDTO> result = LopHocDangKyBUS.FindLopHocDangKyByIDLopHoc(lophoc.MaLopHoc, month);
+                StudyAssignDataGrid.ItemsSource = result;
+            }
+        }
+
+        private void SetIsNghiLuon_Click(object sender, RoutedEventArgs e)
+        {
+            List<LopHocDangKyDTO> list = new List<LopHocDangKyDTO>();
+            for (int i = 0; i < StudyAssignDataGrid.Items.Count; i++)
+            {
+                var item = StudyAssignDataGrid.Items[i];
+                var mycheckbox = StudyAssignDataGrid.Columns[0].GetCellContent(item) as CheckBox;
+                if ((bool)mycheckbox.IsChecked)
+                {
+                    list.Add((LopHocDangKyDTO)item);
+                }
+            }
+            ChuyenTrangThaiHoc window = new ChuyenTrangThaiHoc(list);
+            window.Show();
+        }
+
+        private void SetIsDangHoc_Click(object sender, RoutedEventArgs e)
+        {
+            int rowAffected = 0;
+            for (int i = 0; i < StudyAssignDataGrid.Items.Count; i++)
+            {
+                var item = StudyAssignDataGrid.Items[i];
+                var mycheckbox = StudyAssignDataGrid.Columns[0].GetCellContent(item) as CheckBox;
+                if ((bool)mycheckbox.IsChecked)
+                {
+                    LopHocDangKyDTO dangky = (LopHocDangKyDTO)item;
+                    dangky.TinhTrang = true;
+                    dangky.NgayKetThuc = null;
+                    rowAffected += LopHocDangKyBUS.UpdateLopHocDangKy(dangky);
+                }
+            }
+            MessageBox.Show($"{rowAffected} học sinh đã được cập nhật");
+        }
+
+        private void MienGiam_Click(object sender, RoutedEventArgs e)
+        {
+            List<LopHocDangKyDTO> list = new List<LopHocDangKyDTO>();
+            for (int i = 0; i < StudyAssignDataGrid.Items.Count; i++)
+            {
+                var item = StudyAssignDataGrid.Items[i];
+                var mycheckbox = StudyAssignDataGrid.Columns[0].GetCellContent(item) as CheckBox;
+                if ((bool)mycheckbox.IsChecked)
+                {
+                    list.Add((LopHocDangKyDTO)item);
+                }
+            }
+            MienGiam window = new MienGiam(list);
+            window.Show();
+        }
+
+        private void ChuyenLop_Click(object sender, RoutedEventArgs e)
+        {
+            List<LopHocDangKyDTO> list = new List<LopHocDangKyDTO>();
+            for (int i = 0; i < StudyAssignDataGrid.Items.Count; i++)
+            {
+                var item = StudyAssignDataGrid.Items[i];
+                var mycheckbox = StudyAssignDataGrid.Columns[0].GetCellContent(item) as CheckBox;
+                if ((bool)mycheckbox.IsChecked)
+                {
+                    list.Add((LopHocDangKyDTO)item);
+                }
+            }
+            ChuyenLop window = new ChuyenLop(list);
+            window.Show();
         }
     }
 }

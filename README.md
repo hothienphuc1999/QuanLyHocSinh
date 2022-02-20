@@ -5,3 +5,4 @@
 |v0.1.2|Quản lý lớp học|Create, Update, Delete|?|
 # NOTE
 - v0.1.2: class utilities are not installed.
+- v0.1.3: fix LopHoc, HocPhi, HocPhiNo, ChiTietLuong tables. add class utilities expect Điểm Danh funcion.

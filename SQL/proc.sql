@@ -204,7 +204,7 @@ go
 -- get lophocdangky by idlophoc, month
 create proc usp_get_lhdk_by_month_idlophoc @malophoc int, @thang date
 as
-if not exists (select * from LopHoc where MaLopHoc = @malophoc)
+	if not exists (select * from LopHoc where MaLopHoc = @malophoc)
 	begin
 		RAISERROR(N'Lớp học không tồn tại!',16,1)
 		return
@@ -215,4 +215,103 @@ if not exists (select * from LopHoc where MaLopHoc = @malophoc)
 	left join (select MaDangKy, SUM(TienNo) as SoTienNo from HocPhiNo group by MaDangKy) hpn on lhdk.MaDangky = hpn.MaDangKy
 	left join (select MaDangKy, SUM(GiaTien) as SoTienDong from HocPhi where ThangDong = @thang group by MaDangKy) hp on lhdk.MaDangky = hp.MaDangKy
 	where lhdk.MaLopHoc = @malophoc and DATEDIFF(month, lhdk.NgayBatDau, @thang) >= 0 and (lhdk.TinhTrang = 1 or DATEDIFF(month, lhdk.NgayKetThuc, @thang) = 0)
+go
+-- 12/2/2022
+-- create lhdk
+create proc usp_create_lhdk
+	@ngaybd date,
+	@ngaykt date,
+	@tinhtrang bit,
+	@mahs int,
+	@malh int,
+	@miengiam nchar(30)
+as
+	if not exists (select * from LopHoc where MaLopHoc = @malh)
+	begin
+		RAISERROR(N'Lớp học không tồn tại!',16,1)
+		return
+	end
+	insert into LopHocDangKy(NgayBatDau, NgayKetThuc, TinhTrang, MaHocSinh, MaLopHoc, MienGiam)
+	values (@ngaybd, @ngaykt, @tinhtrang, @mahs, @malh, @miengiam)
+go
+
+-- update lhdk
+alter proc usp_update_lhdk
+	@madk int,
+	@ngaybd date,
+	@ngaykt date,
+	@tinhtrang bit,
+	@mahs int,
+	@malh int,
+	@miengiam nchar(30)
+as
+	if not exists (select * from LopHocDangKy where MaDangky = @madk)
+	begin
+		RAISERROR(N'Lớp học đăng ký này không tồn tại!',16,1)
+		return
+	end
+	update LopHocDangKy
+	set NgayBatDau=@ngaybd, NgayKetThuc=@ngaykt, TinhTrang=@tinhtrang, MaHocSinh=@mahs, MaLopHoc=@malh, MienGiam=@miengiam
+	where MaDangky = @madk
+go
+
+-- delete lhdk
+create proc usp_delete_lhdk
+	@madk int
+as
+	if not exists (select * from LopHocDangKy where MaDangky = @madk)
+	begin
+		RAISERROR(N'Lớp học đăng ký này không tồn tại!',16,1)
+		return
+	end
+	delete from LopHocDangKy
+	where MaDangky = @madk
+go
+-- get lophocdangky with lophoc by mahs
+alter proc usp_get_lhdk_with_lophoc_by_idhocsinh @mahs int
+as
+	if not exists (select * from HocSinh where MaHS = @mahs)
+	begin
+		RAISERROR(N'Học sinh không tồn tại!',16,1)
+		return
+	end
+	select lhdk.*, lh.TenLopHoc, lh.NienKhoa, gv.DanhXung, gv.TenGiaoVien, hpn.SoTienNo
+	from LopHocDangKy lhdk 
+	join LopHoc lh on lhdk.MaLopHoc = lh.MaLopHoc
+	join GiaoVien gv on lh.MaGiaoVien = gv.MaGiaovien
+	left join (select MaDangKy, SUM(TienNo) as SoTienNo from HocPhiNo group by MaDangKy) hpn on lhdk.MaDangky = hpn.MaDangKy
+	where lhdk.MaHocSinh = @mahs
+go
+-- fix lophoc
+-- create lophoc
+alter proc usp_create_lophoc
+	@tenlh nvarchar(8),
+	@nienkhoa nchar(10),
+	@hplh nvarchar(7),
+	@magv int
+as
+	if not exists (select * from GiaoVien where MaGiaoVien = @magv)
+	begin
+		RAISERROR(N'Giáo viên này không tồn tại trong cơ sở dữ liệu!',16,1)
+		return
+	end
+	insert into LopHoc(TenLopHoc, NienKhoa, HocPhiLopHoc, MaGiaoVien)
+	values (@tenlh, @nienkhoa, @hplh, @magv)
+go
+-- update lophoc
+alter proc usp_update_lophoc
+	@malh int,
+	@tenlh nvarchar(8),
+	@nienkhoa nchar(10),
+	@hplh nvarchar(7),
+	@magv int
+as
+	if not exists (select * from LopHoc where MaLopHoc = @malh)
+	begin
+		RAISERROR(N'Lớp học này không tồn tại trong cơ sở dữ liệu!',16,1)
+		return
+	end
+	update LopHoc
+	set TenLopHoc = @tenlh, NienKhoa = @nienkhoa, HocPhiLopHoc=@hplh, MaGiaoVien = @magv
+	where MaLopHoc = @malh
 go

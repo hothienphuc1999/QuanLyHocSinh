@@ -14,5 +14,21 @@ namespace BUS
         {
             return LopHocDangKyDAO.FindLopHocDangKyByIDLopHoc(malophoc, month);
         }
+        static public List<LopHocDangKyDTO> GetLopHocDangKyByIDHocSinh(int mahs)
+        {
+            return LopHocDangKyDAO.GetLopHocDangKyByIDHocSinh(mahs);
+        }
+        static public int CreateLopHocDangKy(LopHocDangKyDTO dangky)
+        {
+            return LopHocDangKyDAO.CreateLopHocDangKy(dangky);
+        }
+        static public int UpdateLopHocDangKy(LopHocDangKyDTO dangky)
+        {
+            return LopHocDangKyDAO.UpdateLopHocDangKy(dangky);
+        }
+        static public int DeleteLopHocDangKy(int madk)
+        {
+            return LopHocDangKyDAO.DeleteLopHocDangKy(madk);
+        }
     }
 }

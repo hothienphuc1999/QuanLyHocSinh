@@ -9,12 +9,12 @@ namespace DTO
     public class HocPhiNoDTO
     {
         private int _maNo;
-        private int _thangNo;
+        private DateTime _thangNo;
         private int _tienNo;
         private int _maDangKy;
         private LopHocDangKyDTO _lopHocDangKy;
 
-        public HocPhiNoDTO(int maNo, int thangNo, int tienNo, int maDangKy, LopHocDangKyDTO lopHocDangKy)
+        public HocPhiNoDTO(int maNo, DateTime thangNo, int tienNo, int maDangKy, LopHocDangKyDTO lopHocDangKy)
         {
             _maNo = maNo;
             _thangNo = thangNo;
@@ -24,7 +24,7 @@ namespace DTO
         }
 
         public int MaNo { get => _maNo; set => _maNo = value; }
-        public int ThangNo { get => _thangNo; set => _thangNo = value; }
+        public DateTime ThangNo { get => _thangNo; set => _thangNo = value; }
         public int TienNo { get => _tienNo; set => _tienNo = value; }
         public int MaDangKy { get => _maDangKy; set => _maDangKy = value; }
         public LopHocDangKyDTO LopHocDangKy { get => _lopHocDangKy; set => _lopHocDangKy = value; }

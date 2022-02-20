@@ -9,7 +9,7 @@ namespace DTO
     public class HocPhiDTO
     {
         private int _maHocPhi;
-        private int _thangDong;
+        private DateTime _thangDong;
         private int _giaTien;
         private DateTime _thoiGianDong;
         private string _nguoiDong;
@@ -20,7 +20,7 @@ namespace DTO
         private int _maDangKy;
         private LopHocDangKyDTO _lopHocDangKy;
 
-        public HocPhiDTO(int maHocPhi, int thangDong, int giaTien, DateTime thoiGianDong, string nguoiDong, string nguoiThu, string dongTai, string soBienLaiGiay, DateTime thoiGianChinhSua, int maDangKy, LopHocDangKyDTO lopHocDangKy)
+        public HocPhiDTO(int maHocPhi, DateTime thangDong, int giaTien, DateTime thoiGianDong, string nguoiDong, string nguoiThu, string dongTai, string soBienLaiGiay, DateTime thoiGianChinhSua, int maDangKy, LopHocDangKyDTO lopHocDangKy)
         {
             _maHocPhi = maHocPhi;
             _thangDong = thangDong;
@@ -36,7 +36,7 @@ namespace DTO
         }
 
         public int MaHocPhi { get => _maHocPhi; set => _maHocPhi = value; }
-        public int ThangDong { get => _thangDong; set => _thangDong = value; }
+        public DateTime ThangDong { get => _thangDong; set => _thangDong = value; }
         public int GiaTien { get => _giaTien; set => _giaTien = value; }
         public DateTime ThoiGianDong { get => _thoiGianDong; set => _thoiGianDong = value; }
         public string NguoiDong { get => _nguoiDong; set => _nguoiDong = value; }

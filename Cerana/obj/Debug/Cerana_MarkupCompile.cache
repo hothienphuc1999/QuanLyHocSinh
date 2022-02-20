@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\App.xaml
-5-476519041
+91930301922
 
-9-2038091500
+13-463528972
 181396121320
-GiaoVien.xaml;LichHoc.xaml;LichNghi.xaml;LopHocDangKy.xaml;MainWindow.xaml;
+LopHocDangKy\ChuyenLop.xaml;LopHocDangKy\ChuyenTrangThaiHoc.xaml;GiaoVien.xaml;LichHoc.xaml;LichNghi.xaml;LopHocDangKy\DangKyLopHoc.xaml;LopHocDangKy\LopHocDaDangKy.xaml;MainWindow.xaml;LopHocDangKy\MienGiam.xaml;
 
 False
 

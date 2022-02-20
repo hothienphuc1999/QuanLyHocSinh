@@ -32,6 +32,7 @@ namespace DAO
                             (int)r["MaLopHoc"],
                             r["TenLopHoc"].ToString(),
                             (int)r["MaGiaoVien"],
+                            r["HocPhiLopHoc"].ToString(),
                             r["NienKhoa"].ToString(),
                             GiaoVienDAO.FindGiaoVienByID(magiaovien),
                             null,
@@ -102,6 +103,7 @@ namespace DAO
                             (int)r["MaLopHoc"],
                             r["TenLopHoc"].ToString(),
                             (int)r["MaGiaoVien"],
+                            r["HocPhiLopHoc"].ToString(),
                             r["NienKhoa"].ToString(),
                             GiaoVienDAO.FindGiaoVienByID(magiaovien),
                             null,
@@ -133,6 +135,7 @@ namespace DAO
                     "usp_create_lophoc",
                     new SqlParameter { ParameterName = "@tenlh", Value = lophoc.TenLopHoc },
                     new SqlParameter { ParameterName = "@nienkhoa", Value = lophoc.NienKhoa },
+                    new SqlParameter { ParameterName = "@hplh", Value = lophoc.HocPhiLopHoc },
                     new SqlParameter { ParameterName = "@magv", Value = lophoc.MaGiaoVien }
                     );
             }
@@ -159,6 +162,7 @@ namespace DAO
                     new SqlParameter { ParameterName = "@malh", Value = lophoc.MaLopHoc },
                     new SqlParameter { ParameterName = "@tenlh", Value = lophoc.TenLopHoc },
                     new SqlParameter { ParameterName = "@nienkhoa", Value = lophoc.NienKhoa },
+                    new SqlParameter { ParameterName = "@hplh", Value = lophoc.HocPhiLopHoc },
                     new SqlParameter { ParameterName = "@magv", Value = lophoc.MaGiaoVien }
                     );
             }

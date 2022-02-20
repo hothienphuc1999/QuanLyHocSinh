@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BUS;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,16 +13,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Cerana
+namespace Cerana.LopHocDangKy
 {
     /// <summary>
-    /// Interaction logic for LopHocDangKy.xaml
+    /// Interaction logic for LopHocDaDangKy.xaml
     /// </summary>
-    public partial class LopHocDangKy : Window
+    public partial class LopHocDaDangKy : Window
     {
-        public LopHocDangKy()
+        public LopHocDaDangKy(int mahs)
         {
             InitializeComponent();
+            ListDangKyDataGrid.ItemsSource = LopHocDangKyBUS.GetLopHocDangKyByIDHocSinh(mahs);
         }
     }
 }
