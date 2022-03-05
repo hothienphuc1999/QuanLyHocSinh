@@ -30,5 +30,9 @@ namespace BUS
         {
             return LopHocDangKyDAO.DeleteLopHocDangKy(madk);
         }
+        static public List<LopHocDangKyDTO> GetLopHocDangKyByIDHocSinhAndMonth(int mahocsinh, DateTime month)
+        {
+            return LopHocDangKyDAO.GetLopHocDangKyByIDHocSinhAndMonth(mahocsinh, month);
+        }
     }
 }

@@ -34,6 +34,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Họ Lót" Binding="{Binding HoLot}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Tên" Binding="{Binding Ten}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Lớp" Binding="{Binding Lop}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="SĐT Học Sinh" Binding="{Binding SdtHocSinh}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="SĐT Phụ Huynh" Binding="{Binding SdtPhuHuynh}" IsReadOnly="True"/>
                 </DataGrid.Columns>

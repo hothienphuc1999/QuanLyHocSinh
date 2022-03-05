@@ -16,11 +16,11 @@ namespace DTO
         private string _nguoiThu;
         private string _dongTai;
         private string _soBienLaiGiay;
-        private DateTime _thoiGianChinhSua;
+        private DateTime? _thoiGianChinhSua;
         private int _maDangKy;
         private LopHocDangKyDTO _lopHocDangKy;
 
-        public HocPhiDTO(int maHocPhi, DateTime thangDong, int giaTien, DateTime thoiGianDong, string nguoiDong, string nguoiThu, string dongTai, string soBienLaiGiay, DateTime thoiGianChinhSua, int maDangKy, LopHocDangKyDTO lopHocDangKy)
+        public HocPhiDTO(int maHocPhi, DateTime thangDong, int giaTien, DateTime thoiGianDong, string nguoiDong, string nguoiThu, string dongTai, string soBienLaiGiay, DateTime? thoiGianChinhSua, int maDangKy, LopHocDangKyDTO lopHocDangKy)
         {
             _maHocPhi = maHocPhi;
             _thangDong = thangDong;
@@ -42,9 +42,9 @@ namespace DTO
         public string NguoiDong { get => _nguoiDong; set => _nguoiDong = value; }
         public string NguoiThu { get => _nguoiThu; set => _nguoiThu = value; }
         public string DongTai { get => _dongTai; set => _dongTai = value; }
-        public string SoBienLaiGiay { get => _soBienLaiGiay; set => _soBienLaiGiay = value; }
-        public DateTime ThoiGianChinhSua { get => _thoiGianChinhSua; set => _thoiGianChinhSua = value; }
         public int MaDangKy { get => _maDangKy; set => _maDangKy = value; }
         public LopHocDangKyDTO LopHocDangKy { get => _lopHocDangKy; set => _lopHocDangKy = value; }
+        public string SoBienLaiGiay { get => _soBienLaiGiay; set => _soBienLaiGiay = value; }
+        public DateTime? ThoiGianChinhSua { get => _thoiGianChinhSua; set => _thoiGianChinhSua = value; }
     }
 }

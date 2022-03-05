@@ -6,7 +6,6 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-
                 <!--Material color-->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/materialdesigncolor.teal.xaml" />
 
@@ -38,7 +37,6 @@
 
             <!--Cách app dụng style mặc định cho tất cả các Button trong ứng dụng-->
             <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="{x:Type Button}"/>
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>

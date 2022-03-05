@@ -112,10 +112,11 @@
                                      wpf:HintAssist.Hint="Tìm kiếm học sinh"
                                      KeyDown="SearchTextBox_KeyDown"></TextBox>
                         </DockPanel>
-                        <DataGrid x:Name="HocSinhDataGrid" AutoGenerateColumns="False" SelectionMode="Single" MouseLeftButtonDown="HocSinhDataGrid_Unselected">
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
+                            <TextBlock Margin="5 0" FontWeight="DemiBold" Text="{Binding ElementName=HocSinhDataGrid, Path=ItemsSource.Count, StringFormat='Số lượng: {0}'}"/>
+                        </StackPanel>
+                        <DataGrid x:Name="HocSinhDataGrid" AutoGenerateColumns="False" MouseLeftButtonDown="HocSinhDataGrid_Unselected">
                             <DataGrid.Columns>
-                                <DataGridCheckBoxColumn  Header="Chọn">
-                                </DataGridCheckBoxColumn>
                                 <DataGridTextColumn Header="Họ Lót" Binding="{Binding HoLot}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Tên" Binding="{Binding Ten}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="SĐT Học Sinh" Binding="{Binding SdtHocSinh}" IsReadOnly="True"/>
@@ -135,6 +136,8 @@
                                     <MenuItem Name="DangKyMenuItem" Header="Đăng ký lớp học" Click="DangKyMenuItem_Click"/>
                                     <MenuItem Name="QuanLyLopMenuItem" Header="Lớp đã đăng ký" Click="QuanLyLopMenuItem_Click"/>
                                     <MenuItem Name="DongHocPhiMenuItem" Header="Đóng học phí" Click="DongHocPhiMenuItem_Click"/>
+                                    <MenuItem Name="HocPhiDaDongMenuItem" Header="Học phí đã đóng" Click="HocPhiDaDongMenuItem_Click"/>
+                                    <MenuItem Name="HocPhiNoMenuItem" Header="Học phí nợ" Click="HocPhiNoMenuItem_Click"/>
                                     <MenuItem Foreground="Red" Name="XoaHocSinhMenuItem" Header="Xóa học sinh" Click="XoaHocSinhMenuItem_Click"/>
                                 </ContextMenu>
                             </DataGrid.ContextMenu>
@@ -225,9 +228,8 @@
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
                             <TextBlock Margin="5 0" FontWeight="DemiBold" Text="{Binding ElementName=StudyAssignDataGrid, Path=ItemsSource.Count, StringFormat='Sỉ số: {0}'}"/>
                         </StackPanel>
-                        <DataGrid Margin="5" Name="StudyAssignDataGrid" SelectionMode="Single" AutoGenerateColumns="False">
+                        <DataGrid Margin="5" Name="StudyAssignDataGrid" AutoGenerateColumns="False">
                             <DataGrid.Columns>
-                                <DataGridCheckBoxColumn  Header="Chọn"/>
                                 <DataGridTextColumn  Header="Họ lót" Binding="{Binding Hocsinh.HoLot}" IsReadOnly="True"/>
                                 <DataGridTextColumn  Header="Tên" Binding="{Binding Hocsinh.Ten}" IsReadOnly="True"/>
                                 <DataGridTextColumn  Header="Học Phí" Binding="{Binding SoTienDong, Converter={StaticResource currencyFormatting}}" IsReadOnly="True"/>
@@ -257,7 +259,79 @@
             </TabItem>
             <TabItem Name="TuitionPage">
                 <DockPanel>
-                    <Label>Học phí</Label>
+                    <DockPanel DockPanel.Dock="Right" Width="200">
+                        <TextBlock DockPanel.Dock="Top" TextAlignment="Center" FontSize="14" 
+                                    FontWeight="SemiBold" Margin="0,10">
+                                THÔNG TIN HỌC PHÍ
+                        </TextBlock>
+                        <Button x:Name="SaveHocPhiButton" Click="SaveHocPhiButton_Click"  DockPanel.Dock="Bottom" Width="70" Margin="5">Lưu</Button>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <!--<StackPanel Orientation="Vertical">
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Mã Lớp</Label>
+                                <TextBox x:Name="ClassCodeTextBox" wpf:HintAssist.Hint="Mã lớp" IsEnabled="False"
+                                         DataContext="{Binding ElementName=ClassComboBox, Path=SelectedItem}" Text="{Binding MaLopHoc}"/>
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Tên Lớp</Label>
+                                <TextBox x:Name="ClassNameTextBox" wpf:HintAssist.Hint="Tên lớp"
+                                         DataContext="{Binding ElementName=ClassComboBox, Path=SelectedItem}" Text="{Binding TenLopHoc}"/>
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Niên Khóa</Label>
+                                <TextBox x:Name="ClassYearTextBox" wpf:HintAssist.Hint="Ví dụ: 2021-2022"
+                                         DataContext="{Binding ElementName=ClassComboBox, Path=SelectedItem}" Text="{Binding NienKhoa}"/>
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Học Phí Lớp Học</Label>
+                                <TextBox x:Name="PriceTextBox" wpf:HintAssist.Hint="Học Phí Lớp Học"
+                                         DataContext="{Binding ElementName=ClassComboBox, Path=SelectedItem}" Text="{Binding HocPhiLopHoc}"/>
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Giáo Viên</Label>
+                                <ComboBox Name="TeacherOfClassCBB" ItemsSource="{Binding ElementName=TeacherComboBox, Path=ItemsSource}"
+                                          SelectedIndex="{Binding ElementName=TeacherComboBox, Path=SelectedIndex, Mode=OneWay}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding DanhXung}" Margin="5 0"></TextBlock>
+                                                <TextBlock Text="{Binding TenGiaoVien}"></TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Style="{DynamicResource MaterialDesignRaisedLightButton}" Margin="5" Name="ScheduleOfClassBtn">Lịch học</Button>
+                                    <Button Style="{DynamicResource MaterialDesignRaisedLightButton}" Margin="5" Name="ExtendedScheduleOfClassBtn">Lịch nghỉ</Button>
+                                </StackPanel>
+                            </StackPanel>-->
+                        </ScrollViewer>
+                    </DockPanel>
+                    <DockPanel>
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                            <DatePicker Margin="5"  Name="MonthTuitionPicker" Loaded="MonthTuitionPicker_Loaded"/>
+                            <Button Style="{DynamicResource MaterialDesignFlatButton}" Margin="5 0" ToolTip="Làm mới"
+                                    Name="RefreshTuitionButton" Click="RefreshTuitionButton_Click">
+                                <wpf:PackIcon Kind="Refresh"></wpf:PackIcon>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
+                            <TextBlock Margin="5 0" FontWeight="DemiBold" Text="{Binding ElementName=TuitionDataGrid, Path=ItemsSource.Count, StringFormat='Số lượng: {0}'}"/>
+                        </StackPanel>
+                        <DataGrid Margin="5" Name="TuitionDataGrid" AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn  Header="Họ lót" Binding="{Binding Hocsinh.HoLot}" IsReadOnly="True"/>
+                                <DataGridTextColumn  Header="Tên" Binding="{Binding Hocsinh.Ten}" IsReadOnly="True"/>
+                                <DataGridTextColumn  Header="Lớp" Binding="{Binding Hocsinh.Lop}" IsReadOnly="True"/>
+                                <DataGridTextColumn  Header="Giáo Viên"  IsReadOnly="True">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} {1}">
+                                            <Binding Path="Lophoc.Giaovien.DanhXung"/>
+                                            <Binding Path="Lophoc.Giaovien.TenGiaoVien" />
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn  Header="Số tiền" Binding="{Binding SoTien,Converter={StaticResource currencyFormatting}}" IsReadOnly="True"/>
+                                <DataGridTextColumn  Header="Tháng" Binding="{Binding ThangDong}" IsReadOnly="True"/>
+                            </DataGrid.Columns>
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Xóa học phí" Foreground="Red"></MenuItem>
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                    </DockPanel>
                 </DockPanel>
             </TabItem>
         </TabControl>

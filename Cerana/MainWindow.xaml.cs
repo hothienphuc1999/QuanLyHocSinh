@@ -130,14 +130,9 @@ namespace Cerana
         private void DangKyMenuItem_Click(object sender, RoutedEventArgs e)
         {
             List<int> list = new List<int>();
-            for (int i = 0; i < HocSinhDataGrid.Items.Count; i++)
+            foreach (HocSinhDTO hocsinh in HocSinhDataGrid.SelectedItems)
             {
-                var item = HocSinhDataGrid.Items[i];
-                var mycheckbox = HocSinhDataGrid.Columns[0].GetCellContent(item) as CheckBox;
-                if ((bool)mycheckbox.IsChecked)
-                {
-                    list.Add(((HocSinhDTO)item).MaHS);
-                }
+                list.Add(hocsinh.MaHS);
             }
         }
 
@@ -176,14 +171,9 @@ namespace Cerana
             if (messageBoxResult == MessageBoxResult.OK)
             {
                 int rowAffected = 0;
-                for (int i = 0; i < HocSinhDataGrid.Items.Count; i++)
+                foreach (HocSinhDTO hocsinh in HocSinhDataGrid.SelectedItems)
                 {
-                    var item = HocSinhDataGrid.Items[i];
-                    var mycheckbox = HocSinhDataGrid.Columns[0].GetCellContent(item) as CheckBox;
-                    if ((bool)mycheckbox.IsChecked)
-                    {
-                        rowAffected += HocSinhBUS.DeleteHocSinh(((HocSinhDTO)item).MaHS);
-                    }
+                    rowAffected += HocSinhBUS.DeleteHocSinh(hocsinh.MaHS);
                 }
                 MessageBox.Show($"{rowAffected} học sinh đã được xóa");
             }
@@ -242,7 +232,12 @@ namespace Cerana
 
         private void DongHocPhiMenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            if (HocSinhDataGrid.SelectedItem != null)
+            {
+                HocSinhDTO hocsinh = HocSinhDataGrid.SelectedItem as HocSinhDTO;
+                HocPhi.DongHocPhi dongHocPhi = new HocPhi.DongHocPhi(hocsinh.MaHS);
+                dongHocPhi.Show();
+            }
         }
 
         private void SaveLopButton_Click(object sender, RoutedEventArgs e)
@@ -316,16 +311,19 @@ namespace Cerana
                 ClassComboBox.ItemsSource = null;
             }
         }
-
-        private void ClassComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LoadHocSinhOfLopHoc()
         {
             LopHocDTO lophoc = ClassComboBox.SelectedItem as LopHocDTO;
-            DateTime month = MonthPicker.SelectedDate.Value.Date;
+            DateTime month = new DateTime(MonthPicker.SelectedDate.Value.Year, MonthPicker.SelectedDate.Value.Month, 1);
             if (lophoc != null)
             {
                 List<LopHocDangKyDTO> result = LopHocDangKyBUS.FindLopHocDangKyByIDLopHoc(lophoc.MaLopHoc, month);
                 StudyAssignDataGrid.ItemsSource = result;
             }
+        }
+        private void ClassComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LoadHocSinhOfLopHoc();
         }
 
         private void MonthPicker_Loaded(object sender, RoutedEventArgs e)
@@ -370,41 +368,25 @@ namespace Cerana
             if (messageBoxResult == MessageBoxResult.OK)
             {
                 int rowAffected = 0;
-                for (int i = 0; i < StudyAssignDataGrid.Items.Count; i++)
+                foreach (LopHocDangKyDTO dangky in StudyAssignDataGrid.SelectedItems)
                 {
-                    var item = StudyAssignDataGrid.Items[i];
-                    var mycheckbox = StudyAssignDataGrid.Columns[0].GetCellContent(item) as CheckBox;
-                    if ((bool)mycheckbox.IsChecked)
-                    {
-                        rowAffected += LopHocDangKyBUS.DeleteLopHocDangKy(((LopHocDangKyDTO)item).MaDangKy);
-                    }
-                }
+                    rowAffected += LopHocDangKyBUS.DeleteLopHocDangKy(dangky.MaDangKy);
+                }    
                 MessageBox.Show($"{rowAffected} học sinh đã được xóa");
             }
         }
 
         private void RefreshAssignButton_Click(object sender, RoutedEventArgs e)
         {
-            LopHocDTO lophoc = ClassComboBox.SelectedItem as LopHocDTO;
-            DateTime month = MonthPicker.SelectedDate.Value.Date;
-            if (lophoc != null)
-            {
-                List<LopHocDangKyDTO> result = LopHocDangKyBUS.FindLopHocDangKyByIDLopHoc(lophoc.MaLopHoc, month);
-                StudyAssignDataGrid.ItemsSource = result;
-            }
+            LoadHocSinhOfLopHoc();
         }
 
         private void SetIsNghiLuon_Click(object sender, RoutedEventArgs e)
         {
             List<LopHocDangKyDTO> list = new List<LopHocDangKyDTO>();
-            for (int i = 0; i < StudyAssignDataGrid.Items.Count; i++)
+            foreach (LopHocDangKyDTO dangky in StudyAssignDataGrid.SelectedItems)
             {
-                var item = StudyAssignDataGrid.Items[i];
-                var mycheckbox = StudyAssignDataGrid.Columns[0].GetCellContent(item) as CheckBox;
-                if ((bool)mycheckbox.IsChecked)
-                {
-                    list.Add((LopHocDangKyDTO)item);
-                }
+                list.Add(dangky);
             }
             ChuyenTrangThaiHoc window = new ChuyenTrangThaiHoc(list);
             window.Show();
@@ -413,17 +395,11 @@ namespace Cerana
         private void SetIsDangHoc_Click(object sender, RoutedEventArgs e)
         {
             int rowAffected = 0;
-            for (int i = 0; i < StudyAssignDataGrid.Items.Count; i++)
+            foreach (LopHocDangKyDTO dangky in StudyAssignDataGrid.SelectedItems)
             {
-                var item = StudyAssignDataGrid.Items[i];
-                var mycheckbox = StudyAssignDataGrid.Columns[0].GetCellContent(item) as CheckBox;
-                if ((bool)mycheckbox.IsChecked)
-                {
-                    LopHocDangKyDTO dangky = (LopHocDangKyDTO)item;
-                    dangky.TinhTrang = true;
-                    dangky.NgayKetThuc = null;
-                    rowAffected += LopHocDangKyBUS.UpdateLopHocDangKy(dangky);
-                }
+                dangky.TinhTrang = true;
+                dangky.NgayKetThuc = null;
+                rowAffected += LopHocDangKyBUS.UpdateLopHocDangKy(dangky);
             }
             MessageBox.Show($"{rowAffected} học sinh đã được cập nhật");
         }
@@ -431,14 +407,9 @@ namespace Cerana
         private void MienGiam_Click(object sender, RoutedEventArgs e)
         {
             List<LopHocDangKyDTO> list = new List<LopHocDangKyDTO>();
-            for (int i = 0; i < StudyAssignDataGrid.Items.Count; i++)
+            foreach (LopHocDangKyDTO dangky in StudyAssignDataGrid.SelectedItems)
             {
-                var item = StudyAssignDataGrid.Items[i];
-                var mycheckbox = StudyAssignDataGrid.Columns[0].GetCellContent(item) as CheckBox;
-                if ((bool)mycheckbox.IsChecked)
-                {
-                    list.Add((LopHocDangKyDTO)item);
-                }
+                list.Add(dangky);
             }
             MienGiam window = new MienGiam(list);
             window.Show();
@@ -447,17 +418,42 @@ namespace Cerana
         private void ChuyenLop_Click(object sender, RoutedEventArgs e)
         {
             List<LopHocDangKyDTO> list = new List<LopHocDangKyDTO>();
-            for (int i = 0; i < StudyAssignDataGrid.Items.Count; i++)
+            foreach (LopHocDangKyDTO dangky in StudyAssignDataGrid.SelectedItems)
             {
-                var item = StudyAssignDataGrid.Items[i];
-                var mycheckbox = StudyAssignDataGrid.Columns[0].GetCellContent(item) as CheckBox;
-                if ((bool)mycheckbox.IsChecked)
-                {
-                    list.Add((LopHocDangKyDTO)item);
-                }
+                list.Add(dangky);
             }
             ChuyenLop window = new ChuyenLop(list);
             window.Show();
+        }
+
+        private void HocPhiDaDongMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void HocPhiNoMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SaveHocPhiButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LoadHocPhi()
+        {
+
+        }
+
+        private void MonthTuitionPicker_Loaded(object sender, RoutedEventArgs e)
+        {
+            MonthTuitionPicker.SelectedDate = DateTime.Now;
+        }
+
+        private void RefreshTuitionButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

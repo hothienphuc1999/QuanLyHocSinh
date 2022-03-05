@@ -44,6 +44,8 @@
   <ItemGroup>
     <Compile Include="DataConnection.cs" />
     <Compile Include="GiaoVienDAO.cs" />
+    <Compile Include="HocPhiDAO.cs" />
+    <Compile Include="HocPhiNoDAO.cs" />
     <Compile Include="HocSinhDAO.cs" />
     <Compile Include="LopHocDangKyDAO.cs" />
     <Compile Include="LopHocDAO.cs" />

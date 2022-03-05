@@ -42,3 +42,5 @@ C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\LopHocDangKy\ChuyenTra
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\LopHocDangKy\DangKyLopHoc.baml
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\LopHocDangKy\LopHocDaDangKy.baml
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\LopHocDangKy\MienGiam.baml
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\HocPhi\DongHocPhi.g.cs
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Release\HocPhi\DongHocPhi.baml

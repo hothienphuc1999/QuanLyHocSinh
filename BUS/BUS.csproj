@@ -45,6 +45,8 @@
     <Compile Include="GiaoVienBUS.cs" />
     <Compile Include="Helper\BoolToStateConverter.cs" />
     <Compile Include="Helper\CurrencyFormatting.cs" />
+    <Compile Include="HocPhiBUS.cs" />
+    <Compile Include="HocPhiNoBUS.cs" />
     <Compile Include="HocSinhBUS.cs" />
     <Compile Include="LopHocBUS.cs" />
     <Compile Include="LopHocDangKyBUS.cs" />

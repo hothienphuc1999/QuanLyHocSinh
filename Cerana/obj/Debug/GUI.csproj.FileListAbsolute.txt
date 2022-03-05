@@ -42,3 +42,5 @@ C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\Cerana.exe
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\Cerana.pdb
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\LopHocDangKy\LopHocDaDangKy.g.cs
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\LopHocDangKy\LopHocDaDangKy.baml
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\HocPhi\DongHocPhi.g.cs
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\HocPhi\DongHocPhi.baml

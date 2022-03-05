@@ -31,8 +31,8 @@
                 <DataGridTextColumn  Header="Lớp Học" Binding="{Binding Lophoc.TenLopHoc}" IsReadOnly="True"/>
                 <DataGridTextColumn  Header="Học Phí Nợ" Binding="{Binding SoTienNo, Converter={StaticResource currencyFormatting}}" IsReadOnly="True"/>
                 <DataGridTextColumn  Header="Trạng thái" Binding="{Binding TinhTrang,Converter={StaticResource boolToStateConverter}}" IsReadOnly="True"/>
-                <DataGridTextColumn  Header="Ngày Bắt Đầu" Binding="{Binding NgayBatDau}" IsReadOnly="True"/>
-                <DataGridTextColumn  Header="Ngày Kết Thúc" Binding="{Binding NgayKetThuc}" IsReadOnly="True"/>
+                <DataGridTextColumn  Header="Ngày Bắt Đầu" Binding="{Binding NgayBatDau, StringFormat=dd/MM/yyyy}" IsReadOnly="True"/>
+                <DataGridTextColumn  Header="Ngày Kết Thúc" Binding="{Binding NgayKetThuc, StringFormat=dd/MM/yyyy}" IsReadOnly="True"/>
                 <DataGridTextColumn  Header="Miễn giảm" Binding="{Binding Miengiam}" IsReadOnly="True" Width="100"/>
                 <DataGridTextColumn  Header="Khóa" Binding="{Binding Lophoc.NienKhoa}" IsReadOnly="True" Width="100"/>
             </DataGrid.Columns>

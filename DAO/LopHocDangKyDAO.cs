@@ -204,5 +204,48 @@ namespace DAO
             }
             return result;
         }
+        static public List<LopHocDangKyDTO> GetLopHocDangKyByIDHocSinhAndMonth(int mahocsinh, DateTime month)
+        {
+            DataConnection dataConnection = new DataConnection();
+            List<LopHocDangKyDTO> result = null;
+            try
+            {
+                dataConnection.Connect();
+                DataTable dt = dataConnection.Select(
+                    CommandType.StoredProcedure,
+                    "usp_get_lophocdangky_by_mahs_thang",
+                    new SqlParameter { ParameterName = "@mahs", Value = mahocsinh },
+                    new SqlParameter { ParameterName = "@thang", Value = month });
+                if (dt != null)
+                {
+                    result = new List<LopHocDangKyDTO>();
+                    foreach (DataRow r in dt.Rows)
+                    {
+                        LopHocDangKyDTO lophocdangky = new LopHocDangKyDTO(
+                            (int)r["MaDangKy"],
+                            string.IsNullOrEmpty(r["NgayBatDau"].ToString()) ? (DateTime?)null : DateTime.Parse(r["NgayBatDau"].ToString()),
+                            string.IsNullOrEmpty(r["NgayKetThuc"].ToString()) ? (DateTime?)null : DateTime.Parse(r["NgayKetThuc"].ToString()),
+                            (bool)r["TinhTrang"],
+                            (int)r["MaHocSinh"],
+                            (int)r["MaLopHoc"],
+                            r["MienGiam"].ToString(),
+                            null,
+                            new LopHocDTO(-1, r["TenLopHoc"].ToString(),-1, r["HocPhiLopHoc"].ToString(),"",new GiaoVienDTO(-1, r["DanhXung"].ToString(), r["TenGiaoVien"].ToString(),"",null,null),null,null,null),
+                            0,
+                            0);
+                        result.Add(lophocdangky);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                dataConnection.Disconnect();
+            }
+            return result;
+        }
     }
 }

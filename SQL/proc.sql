@@ -315,3 +315,73 @@ as
 	set TenLopHoc = @tenlh, NienKhoa = @nienkhoa, HocPhiLopHoc=@hplh, MaGiaoVien = @magv
 	where MaLopHoc = @malh
 go
+-- 28/02/2022
+-- Dong hoc phi
+-- get lophocdangky with lophoc, giaovien by mahs, thang
+create proc usp_get_lophocdangky_by_mahs_thang @mahs int, @thang date
+as
+	if not exists (select * from HocSinh where MaHS = @mahs)
+	begin
+		RAISERROR(N'Học sinh không tồn tại!',16,1)
+		return
+	end
+	select lhdk.*, lh.TenLopHoc, lh.HocPhiLopHoc, gv.DanhXung, gv.TenGiaoVien
+	from LopHocDangKy lhdk 
+	join LopHoc lh on lhdk.MaLopHoc = lh.MaLopHoc
+	join GiaoVien gv on lh.MaGiaoVien = gv.MaGiaovien
+	where lhdk.MaHocSinh = @mahs and DATEDIFF(month, lhdk.NgayBatDau, @thang) >= 0 and (lhdk.TinhTrang = 1 or DATEDIFF(month, lhdk.NgayKetThuc, @thang) = 0)
+go
+-- hocphino
+-- get hocphi no by mahs
+create proc usp_get_hocphino_by_mahs @mahs int
+as
+	if not exists (select * from HocSinh where MaHS = @mahs)
+	begin
+		RAISERROR(N'Học sinh không tồn tại!',16,1)
+		return
+	end
+	select gv.DanhXung, gv.TenGiaoVien, hpno.*, lh.TenLopHoc
+	from HocPhiNo hpno 
+	join LopHocDangKy lhdk on lhdk.MaDangky = hpno.MaDangKy
+	join LopHoc lh on lhdk.MaLopHoc = lh.MaLopHoc
+	join GiaoVien gv on lh.MaGiaoVien = gv.MaGiaovien
+	where lhdk.MaHocSinh = @mahs
+go
+-- hocphi
+-- create hocphi
+alter proc usp_create_hocphi
+	@thangdong date,
+	@giatien int,
+	@thoigiandong datetime,
+	@nguoidong nvarchar(20),
+	@nguoithu nvarchar(20),
+	@dongtai nvarchar(20),
+	@sobienlaigiay nvarchar(10),
+	@thoigianchinhsua datetime,
+	@madk int
+as
+	if not exists (select * from LopHocDangKy where MaDangky = @madk)
+	begin
+		RAISERROR(N'Lớp học đăng ký không tồn tại trong cơ sở dữ liệu!',16,1)
+		return
+	end
+	SET IDENTITY_INSERT HocPhi ON
+	declare @i int = 1
+	while exists (select * from HocPhi where MaDangky = @madk and MaHocPhi = @i)
+	begin
+		set @i=@i+1
+	end
+	insert into HocPhi(MaHocPhi, ThangDong, GiaTien, ThoiGianDong, NguoiDong, NguoiThu, DongTai, SoBienLaiGiay, ThoiGianChinhSua, MaDangKy)
+	values (@i, @thangdong, @giatien, @thoigiandong, @nguoidong, @nguoithu, @dongtai, @sobienlaigiay, @thoigianchinhsua, @madk)
+	SET IDENTITY_INSERT HocPhi OFF
+go
+-- get hocphi by date
+create proc usp_get_hocphi_by_ngay @ngay date
+as
+	select gv.DanhXung, gv.TenGiaoVien, hp.*, lh.TenLopHoc
+	from HocPhi hp
+	join LopHocDangKy lhdk on lhdk.MaDangky = hp.MaDangKy
+	join LopHoc lh on lhdk.MaLopHoc = lh.MaLopHoc
+	join GiaoVien gv on lh.MaGiaoVien = gv.MaGiaovien
+	where DATEDIFF(DAY,hp.ThoiGianDong, @ngay) = 0
+go
