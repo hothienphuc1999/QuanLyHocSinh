@@ -371,7 +371,7 @@ namespace Cerana
                 foreach (LopHocDangKyDTO dangky in StudyAssignDataGrid.SelectedItems)
                 {
                     rowAffected += LopHocDangKyBUS.DeleteLopHocDangKy(dangky.MaDangKy);
-                }    
+                }
                 MessageBox.Show($"{rowAffected} học sinh đã được xóa");
             }
         }
@@ -438,22 +438,61 @@ namespace Cerana
 
         private void SaveHocPhiButton_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void LoadHocPhi()
-        {
-
+            if (AssignCodeTextBox.Text != "" && TuitionCodeTextBox.Text != "")
+            {
+                int madk = int.Parse(AssignCodeTextBox.Text);
+                int mahp = int.Parse(TuitionCodeTextBox.Text);
+                DateTime thangdong = new DateTime(MonthTuition.SelectedDate.Value.Year, MonthTuition.SelectedDate.Value.Month, 1);
+                int giatien = int.Parse(PriceTuitionTextBox.Text);
+                DateTime thoigiandong = TimeOfTuition.SelectedDate.Value;
+                string nguoidong = Customer.Text;
+                string nguoithu = Cashier.Text;
+                string dongtai = TuitionAt.Text;
+                string sobienlaigiay = BillNumberTextBox.Text;
+                DateTime thoigianchinhsua = DateTime.Now;
+                HocPhiDTO hocphi = new HocPhiDTO(mahp, thangdong, giatien, thoigiandong, nguoidong, nguoithu, dongtai, sobienlaigiay, thoigianchinhsua, madk, null);
+                int rowAffected = HocPhiBUS.UpdateHocPhi(hocphi);
+                MessageBox.Show($"{rowAffected} học phí đã được cập nhật");
+            }
         }
 
         private void MonthTuitionPicker_Loaded(object sender, RoutedEventArgs e)
         {
             MonthTuitionPicker.SelectedDate = DateTime.Now;
         }
-
+        private void LoadHocPhi()
+        {
+            if (MonthTuitionPicker.SelectedDate != null)
+            {
+                DateTime ngay = MonthTuitionPicker.SelectedDate.Value;
+                TuitionDataGrid.ItemsSource = HocPhiBUS.GetHocPhi(ngay);
+            }
+        }
         private void RefreshTuitionButton_Click(object sender, RoutedEventArgs e)
         {
+            LoadHocPhi();
+        }
 
+        private void MonthTuitionPicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LoadHocPhi();
+        }
+
+        private void XoaHocPhi_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show(
+               "Bạn có chắc chắn muốn xóa các học sinh đang đánh dấu chọn? \n" +
+               "Toàn bộ dữ liệu liên quan đến học sinh sẽ bị mất!",
+               "Cảnh báo", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            if (messageBoxResult == MessageBoxResult.OK)
+            {
+                int rowAffected = 0;
+                foreach (HocPhiDTO hocphi in TuitionDataGrid.SelectedItems)
+                {
+                    rowAffected += HocPhiBUS.DeleteHocPhi(hocphi.MaDangKy, hocphi.MaHocPhi);
+                }
+                MessageBox.Show($"{rowAffected} học sinh đã được xóa");
+            }
         }
     }
 }

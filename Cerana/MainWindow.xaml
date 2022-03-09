@@ -266,41 +266,48 @@
                         </TextBlock>
                         <Button x:Name="SaveHocPhiButton" Click="SaveHocPhiButton_Click"  DockPanel.Dock="Bottom" Width="70" Margin="5">Lưu</Button>
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
-                            <!--<StackPanel Orientation="Vertical">
-                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Mã Lớp</Label>
-                                <TextBox x:Name="ClassCodeTextBox" wpf:HintAssist.Hint="Mã lớp" IsEnabled="False"
-                                         DataContext="{Binding ElementName=ClassComboBox, Path=SelectedItem}" Text="{Binding MaLopHoc}"/>
-                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Tên Lớp</Label>
-                                <TextBox x:Name="ClassNameTextBox" wpf:HintAssist.Hint="Tên lớp"
-                                         DataContext="{Binding ElementName=ClassComboBox, Path=SelectedItem}" Text="{Binding TenLopHoc}"/>
-                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Niên Khóa</Label>
-                                <TextBox x:Name="ClassYearTextBox" wpf:HintAssist.Hint="Ví dụ: 2021-2022"
-                                         DataContext="{Binding ElementName=ClassComboBox, Path=SelectedItem}" Text="{Binding NienKhoa}"/>
-                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Học Phí Lớp Học</Label>
-                                <TextBox x:Name="PriceTextBox" wpf:HintAssist.Hint="Học Phí Lớp Học"
-                                         DataContext="{Binding ElementName=ClassComboBox, Path=SelectedItem}" Text="{Binding HocPhiLopHoc}"/>
-                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Giáo Viên</Label>
-                                <ComboBox Name="TeacherOfClassCBB" ItemsSource="{Binding ElementName=TeacherComboBox, Path=ItemsSource}"
-                                          SelectedIndex="{Binding ElementName=TeacherComboBox, Path=SelectedIndex, Mode=OneWay}">
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{Binding DanhXung}" Margin="5 0"></TextBlock>
-                                                <TextBlock Text="{Binding TenGiaoVien}"></TextBlock>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Mã Lớp Học Đăng Ký</Label>
+                                <TextBox x:Name="AssignCodeTextBox" wpf:HintAssist.Hint="Mã Lớp Học Đăng Ký" IsEnabled="False"
+                                         DataContext="{Binding ElementName=TuitionDataGrid, Path=SelectedItem}" Text="{Binding MaDangKy}"/>
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Mã Học Phí</Label>
+                                <TextBox x:Name="TuitionCodeTextBox" wpf:HintAssist.Hint="Mã Học Phí" IsEnabled="False"
+                                         DataContext="{Binding ElementName=TuitionDataGrid, Path=SelectedItem}" Text="{Binding MaHocPhi}"/>
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Tháng Đóng</Label>
+                                <DatePicker Name="MonthTuition" DataContext="{Binding ElementName=TuitionDataGrid, Path=SelectedItem}" SelectedDate="{Binding ThangDong}"/>
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Giá Tiền</Label>
+                                <TextBox x:Name="PriceTuitionTextBox" wpf:HintAssist.Hint="Giá tiền"
+                                         DataContext="{Binding ElementName=TuitionDataGrid, Path=SelectedItem}" Text="{Binding GiaTien}"/>
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Thời Gian Đóng</Label>
+                                <DatePicker Name="TimeOfTuition" DataContext="{Binding ElementName=TuitionDataGrid, Path=SelectedItem}" SelectedDate="{Binding ThoiGianDong}"/>
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Người Đóng</Label>
+                                <ComboBox Name="Customer" DataContext="{Binding ElementName=TuitionDataGrid, Path=SelectedItem}" Text="{Binding NguoiDong}">
+                                    <ComboBoxItem>Học sinh</ComboBoxItem>
+                                    <ComboBoxItem>Phụ huynh</ComboBoxItem>
                                 </ComboBox>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Style="{DynamicResource MaterialDesignRaisedLightButton}" Margin="5" Name="ScheduleOfClassBtn">Lịch học</Button>
-                                    <Button Style="{DynamicResource MaterialDesignRaisedLightButton}" Margin="5" Name="ExtendedScheduleOfClassBtn">Lịch nghỉ</Button>
-                                </StackPanel>
-                            </StackPanel>-->
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Người Thu</Label>
+                                <ComboBox Name="Cashier" DataContext="{Binding ElementName=TuitionDataGrid, Path=SelectedItem}" Text="{Binding NguoiThu}">
+                                    <ComboBoxItem>Việt</ComboBoxItem>
+                                    <ComboBoxItem>Phúc</ComboBoxItem>
+                                    <ComboBoxItem>Thư</ComboBoxItem>
+                                    <ComboBoxItem>Khác</ComboBoxItem>
+                                </ComboBox>
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Đóng Tại</Label>
+                                <ComboBox Name="TuitionAt" DataContext="{Binding ElementName=TuitionDataGrid, Path=SelectedItem}" Text="{Binding DongTai}">
+                                    <ComboBoxItem>Bàn tiếp phụ huynh</ComboBoxItem>
+                                    <ComboBoxItem>Trong lớp</ComboBoxItem>
+                                </ComboBox>
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Số Biên Lai Giấy</Label>
+                                <TextBox x:Name="BillNumberTextBox" wpf:HintAssist.Hint="Số biên lai giấy"
+                                         DataContext="{Binding ElementName=TuitionDataGrid, Path=SelectedItem}" Text="{Binding SoBienLaiGiay}"/>
+                                <Label FontWeight="DemiBold" Margin="0,10,0,5">Thời Gian Chỉnh Sửa</Label>
+                                <DatePicker Name="DateModified" DataContext="{Binding ElementName=TuitionDataGrid, Path=SelectedItem}" SelectedDate="{Binding ThoiGianChinhSua}"/>
+                            </StackPanel>
                         </ScrollViewer>
                     </DockPanel>
                     <DockPanel>
                         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                            <DatePicker Margin="5"  Name="MonthTuitionPicker" Loaded="MonthTuitionPicker_Loaded"/>
+                            <DatePicker Margin="5"  Name="MonthTuitionPicker" Loaded="MonthTuitionPicker_Loaded" SelectedDateChanged="MonthTuitionPicker_SelectedDateChanged"/>
                             <Button Style="{DynamicResource MaterialDesignFlatButton}" Margin="5 0" ToolTip="Làm mới"
                                     Name="RefreshTuitionButton" Click="RefreshTuitionButton_Click">
                                 <wpf:PackIcon Kind="Refresh"></wpf:PackIcon>
@@ -311,23 +318,23 @@
                         </StackPanel>
                         <DataGrid Margin="5" Name="TuitionDataGrid" AutoGenerateColumns="False">
                             <DataGrid.Columns>
-                                <DataGridTextColumn  Header="Họ lót" Binding="{Binding Hocsinh.HoLot}" IsReadOnly="True"/>
-                                <DataGridTextColumn  Header="Tên" Binding="{Binding Hocsinh.Ten}" IsReadOnly="True"/>
-                                <DataGridTextColumn  Header="Lớp" Binding="{Binding Hocsinh.Lop}" IsReadOnly="True"/>
+                                <DataGridTextColumn  Header="Họ lót" Binding="{Binding LopHocDangKy.Hocsinh.HoLot}" IsReadOnly="True"/>
+                                <DataGridTextColumn  Header="Tên" Binding="{Binding LopHocDangKy.Hocsinh.Ten}" IsReadOnly="True"/>
+                                <DataGridTextColumn  Header="Lớp" Binding="{Binding LopHocDangKy.Lophoc.TenLopHoc}" IsReadOnly="True"/>
                                 <DataGridTextColumn  Header="Giáo Viên"  IsReadOnly="True">
                                     <DataGridTextColumn.Binding>
                                         <MultiBinding StringFormat="{}{0} {1}">
-                                            <Binding Path="Lophoc.Giaovien.DanhXung"/>
-                                            <Binding Path="Lophoc.Giaovien.TenGiaoVien" />
+                                            <Binding Path="LopHocDangKy.Lophoc.Giaovien.DanhXung"/>
+                                            <Binding Path="LopHocDangKy.Lophoc.Giaovien.TenGiaoVien" />
                                         </MultiBinding>
                                     </DataGridTextColumn.Binding>
                                 </DataGridTextColumn>
-                                <DataGridTextColumn  Header="Số tiền" Binding="{Binding SoTien,Converter={StaticResource currencyFormatting}}" IsReadOnly="True"/>
-                                <DataGridTextColumn  Header="Tháng" Binding="{Binding ThangDong}" IsReadOnly="True"/>
+                                <DataGridTextColumn  Header="Số tiền" Binding="{Binding GiaTien,Converter={StaticResource currencyFormatting}}" IsReadOnly="True"/>
+                                <DataGridTextColumn  Header="Tháng" Binding="{Binding ThangDong, StringFormat=MM/yyyy}" IsReadOnly="True"/>
                             </DataGrid.Columns>
                             <DataGrid.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="Xóa học phí" Foreground="Red"></MenuItem>
+                                    <MenuItem Header="Xóa học phí" Name="XoaHocPhi" Foreground="Red" Click="XoaHocPhi_Click"></MenuItem>
                                 </ContextMenu>
                             </DataGrid.ContextMenu>
                         </DataGrid>

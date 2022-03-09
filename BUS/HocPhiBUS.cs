@@ -14,5 +14,17 @@ namespace BUS
         {
             return HocPhiDAO.CreateHocPhi(hocphi);
         }
+        static public List<HocPhiDTO> GetHocPhi(DateTime ngay)
+        {
+            return HocPhiDAO.GetHocPhi(ngay);
+        }
+        static public int UpdateHocPhi(HocPhiDTO hocphi)
+        {
+            return HocPhiDAO.UpdateHocPhi(hocphi);
+        }
+        static public int DeleteHocPhi(int madk, int mahp)
+        {
+            return HocPhiDAO.DeleteHocPhi(madk, mahp);
+        }
     }
 }

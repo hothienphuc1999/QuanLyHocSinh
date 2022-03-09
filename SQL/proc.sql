@@ -375,13 +375,50 @@ as
 	values (@i, @thangdong, @giatien, @thoigiandong, @nguoidong, @nguoithu, @dongtai, @sobienlaigiay, @thoigianchinhsua, @madk)
 	SET IDENTITY_INSERT HocPhi OFF
 go
+-- 9/3/2022
 -- get hocphi by date
-create proc usp_get_hocphi_by_ngay @ngay date
+alter proc usp_get_hocphi_by_ngay @ngay date
 as
-	select gv.DanhXung, gv.TenGiaoVien, hp.*, lh.TenLopHoc
+	select gv.DanhXung, gv.TenGiaoVien, hp.*, lh.TenLopHoc, hs.HoLot, hs.Ten
 	from HocPhi hp
 	join LopHocDangKy lhdk on lhdk.MaDangky = hp.MaDangKy
 	join LopHoc lh on lhdk.MaLopHoc = lh.MaLopHoc
 	join GiaoVien gv on lh.MaGiaoVien = gv.MaGiaovien
+	join HocSinh hs on lhdk.MaHocSinh = hs.MaHS
 	where DATEDIFF(DAY,hp.ThoiGianDong, @ngay) = 0
+go
+-- update hocphi
+create proc usp_update_hocphi 
+	@mahp int, 
+	@thangdong date,
+	@giatien int,
+	@thoigiandong datetime,
+	@nguoidong nvarchar(20),
+	@nguoithu nvarchar(20),
+	@dongtai nvarchar(20),
+	@sobienlaigiay nvarchar(10),
+	@thoigianchinhsua datetime,
+	@madk int
+as
+if not exists (select * from LopHocDangKy where MaDangky = @madk)
+	begin
+		RAISERROR(N'Lớp học đăng ký không tồn tại trong cơ sở dữ liệu!',16,1)
+		return
+	end
+	update HocPhi
+	set ThangDong = @thangdong, GiaTien = @giatien, ThoiGianDong = @thoigiandong, NguoiDong = @nguoidong, NguoiThu = @nguoithu, DongTai = @dongtai, SoBienLaiGiay = @sobienlaigiay, ThoiGianChinhSua = @thoigianchinhsua
+	where MaDangKy = @madk and MaHocPhi = @mahp
+go
+-- delete hocphi
+create proc usp_delete_hocphi 
+	@mahp int,
+	@madk int
+as
+if not exists (select * from LopHocDangKy where MaDangky = @madk)
+	begin
+		RAISERROR(N'Lớp học đăng ký không tồn tại trong cơ sở dữ liệu!',16,1)
+		return
+	end
+	delete from HocPhi
+	where MaDangKy = @madk and MaHocPhi = @mahp
 go

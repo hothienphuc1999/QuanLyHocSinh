@@ -30,6 +30,7 @@ namespace Cerana.LopHocDangKy
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            int rowAffected = 0;
             LopHocDTO lophoc = ClassComboBox.SelectedItem as LopHocDTO;
             foreach (LopHocDangKyDTO dk in list)
             {
@@ -49,7 +50,9 @@ namespace Cerana.LopHocDangKy
                     0);
                 LopHocDangKyBUS.UpdateLopHocDangKy(dk);
                 LopHocDangKyBUS.CreateLopHocDangKy(dangkymoi);
+                rowAffected++;
             }
+            MessageBox.Show($"{rowAffected} học sinh đã được chuyển lớp");
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
