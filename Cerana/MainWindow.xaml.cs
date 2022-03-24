@@ -3,6 +3,7 @@ using Cerana.LopHocDangKy;
 using DTO;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -428,12 +429,22 @@ namespace Cerana
 
         private void HocPhiDaDongMenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            if (HocSinhDataGrid.SelectedItem!=null)
+            {
+                int mahs = (HocSinhDataGrid.SelectedItem as HocSinhDTO).MaHS;
+                HocPhi.HocPhiDaDong window = new HocPhi.HocPhiDaDong(mahs);
+                window.ShowDialog();
+            }    
         }
 
         private void HocPhiNoMenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            if (HocSinhDataGrid.SelectedItem != null)
+            {
+                int mahs = (HocSinhDataGrid.SelectedItem as HocSinhDTO).MaHS;
+                HocPhiNo.HocPhiDangNo window = new HocPhiNo.HocPhiDangNo(mahs);
+                window.ShowDialog();
+            }
         }
 
         private void SaveHocPhiButton_Click(object sender, RoutedEventArgs e)
@@ -464,12 +475,18 @@ namespace Cerana
         {
             if (MonthTuitionPicker.SelectedDate != null)
             {
+                TuitionDataGrid.ItemsSource = null;
                 DateTime ngay = MonthTuitionPicker.SelectedDate.Value;
-                TuitionDataGrid.ItemsSource = HocPhiBUS.GetHocPhi(ngay);
+                List<HocPhiDTO> hocphis = HocPhiBUS.GetHocPhi(ngay);
+                TuitionDataGrid.ItemsSource = hocphis;
+                int total = hocphis.Sum(p => p.GiaTien);
+                CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");
+                TotalOfDayTextbox.Text = $"Tổng: {total.ToString("#,###", cul.NumberFormat)} đ";
             }
         }
         private void RefreshTuitionButton_Click(object sender, RoutedEventArgs e)
         {
+            TeacherTuitionComboBox.SelectedIndex = -1;
             LoadHocPhi();
         }
 
@@ -493,6 +510,38 @@ namespace Cerana
                 }
                 MessageBox.Show($"{rowAffected} học sinh đã được xóa");
             }
+        }
+
+        private void DeptManagementButton_Click(object sender, RoutedEventArgs e)
+        {
+            HocPhiNo.HPNo window = new HocPhiNo.HPNo();
+            window.ShowDialog();
+        }
+
+        private void TeacherManagementButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TeacherTuitionComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<GiaoVienDTO> giaoVien = GiaoVienBUS.LoadAllGiaoVien();
+            TeacherTuitionComboBox.ItemsSource = giaoVien;
+        }
+
+        private void TeacherTuitionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (TeacherTuitionComboBox.SelectedItem!=null && MonthTuitionPicker.SelectedDate != null)
+            {
+                TuitionDataGrid.ItemsSource = null;
+                GiaoVienDTO giaovien = TeacherTuitionComboBox.SelectedItem as GiaoVienDTO;
+                DateTime ngay = MonthTuitionPicker.SelectedDate.Value;
+                List<HocPhiDTO> hocphis = HocPhiBUS.GetHocPhiByIDGiaoVien(ngay, giaovien.MaGiaoVien);
+                TuitionDataGrid.ItemsSource = hocphis;
+                int total = hocphis.Sum(p => p.GiaTien);
+                CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");
+                TotalOfDayTextbox.Text = $"Tổng: {total.ToString("#,###", cul.NumberFormat)} đ";
+            }    
         }
     }
 }

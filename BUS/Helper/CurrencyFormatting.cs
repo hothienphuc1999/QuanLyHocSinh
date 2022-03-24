@@ -13,7 +13,7 @@ namespace BUS.Helper
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             int val = (int)value;
-            CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");   // try with "en-US"
+            CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");  
             return val.ToString("#,###", cul.NumberFormat);
         }
 

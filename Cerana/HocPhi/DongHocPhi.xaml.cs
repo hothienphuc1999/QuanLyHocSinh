@@ -98,6 +98,7 @@ namespace Cerana.HocPhi
             if (LopHocCBB.SelectedItem != null)
             {
                 LopHocDangKyDTO dangky = LopHocCBB.SelectedItem as LopHocDangKyDTO;
+                HocPhiTxt.Text = $"Đã đóng: {HocPhiBUS.GetHocPhiByIDDangKyAndMonth(dangky.MaDangKy, ThangDatePicker.SelectedDate.Value).Sum(p => p.GiaTien)}đ";
                 HocPhiLopHocTxt.Text = $"Học phí của lớp học: {NumberConvert(dangky.Lophoc.HocPhiLopHoc)}";
                 MienGiamTxt.Text = $"Học phí miễn giảm: {dangky.Miengiam}";
                 NgayVaoHocTxt.Text = $"Ngày vào học: {dangky.NgayBatDau.Value:dd/MM/yyyy}";
@@ -108,6 +109,7 @@ namespace Cerana.HocPhi
             }
             else
             {
+                HocPhiTxt.Text = $"Đã đóng:";
                 HocPhiLopHocTxt.Text = $"Học phí của lớp học:";
                 MienGiamTxt.Text = $"Học phí miễn giảm:";
                 NgayVaoHocTxt.Text = $"Ngày vào học:";

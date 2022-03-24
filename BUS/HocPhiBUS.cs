@@ -18,6 +18,18 @@ namespace BUS
         {
             return HocPhiDAO.GetHocPhi(ngay);
         }
+        static public List<HocPhiDTO> GetHocPhiByIDGiaoVien(DateTime ngay, int magv)
+        {
+            return HocPhiDAO.GetHocPhiByIDGiaoVien(ngay, magv);
+        }
+        static public List<HocPhiDTO> GetHocPhiByIDHocSinh(int mahs)
+        {
+            return HocPhiDAO.GetHocPhiByIDHocSinh(mahs);
+        }
+        static public List<HocPhiDTO> GetHocPhiByIDDangKyAndMonth(int madk, DateTime thang)
+        {
+            return HocPhiDAO.GetHocPhiByIDDangKyAndMonth(madk, thang);
+        }
         static public int UpdateHocPhi(HocPhiDTO hocphi)
         {
             return HocPhiDAO.UpdateHocPhi(hocphi);

@@ -63,7 +63,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="HocPhiNo\HocPhiDangNo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HocPhiNo\HPNo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HocPhiNo\ThemHocPhiNo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="HocPhi\DongHocPhi.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HocPhi\HocPhiDaDong.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -95,6 +111,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LuongGiaoVien\LuongGV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -103,8 +123,20 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="HocPhiNo\HocPhiDangNo.xaml.cs">
+      <DependentUpon>HocPhiDangNo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HocPhiNo\HPNo.xaml.cs">
+      <DependentUpon>HPNo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HocPhiNo\ThemHocPhiNo.xaml.cs">
+      <DependentUpon>ThemHocPhiNo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HocPhi\DongHocPhi.xaml.cs">
       <DependentUpon>DongHocPhi.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HocPhi\HocPhiDaDong.xaml.cs">
+      <DependentUpon>HocPhiDaDong.xaml</DependentUpon>
     </Compile>
     <Compile Include="LopHocDangKy\ChuyenLop.xaml.cs">
       <DependentUpon>ChuyenLop.xaml</DependentUpon>
@@ -126,6 +158,9 @@
     </Compile>
     <Compile Include="LopHocDangKy\LopHocDaDangKy.xaml.cs">
       <DependentUpon>LopHocDaDangKy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LuongGiaoVien\LuongGV.xaml.cs">
+      <DependentUpon>LuongGV.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

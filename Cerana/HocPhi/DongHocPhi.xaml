@@ -94,11 +94,11 @@
                 <wpf:PackIcon Kind="Plus"></wpf:PackIcon>
             </Button>
             <StackPanel Margin="5">
+                <TextBlock Foreground="Red" Margin="0 5" Name="HocPhiTxt">Đã đóng:</TextBlock>
                 <TextBlock Foreground="Blue" Margin="0 5" Name="HocPhiLopHocTxt">Học phí của lớp học:</TextBlock>
                 <TextBlock Foreground="Red" Margin="0 5" Name="MienGiamTxt">Học phí miễn giảm:</TextBlock>
                 <TextBlock Margin="0 5" Name="NgayVaoHocTxt">Ngày vào học:</TextBlock>
                 <TextBlock Margin="0 5" Name="NgayKetThucTxt">Ngày nghỉ học:</TextBlock>
-                <TextBlock Margin="0 5" Name="LichHocTxt">Lịch học:</TextBlock>
                 <TextBox x:Name="PriceTextBox" wpf:HintAssist.Hint="Số tiền" Margin="0 5"></TextBox>
             </StackPanel>
         </DockPanel>

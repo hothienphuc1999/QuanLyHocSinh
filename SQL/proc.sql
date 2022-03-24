@@ -422,3 +422,91 @@ if not exists (select * from LopHocDangKy where MaDangky = @madk)
 	delete from HocPhi
 	where MaDangKy = @madk and MaHocPhi = @mahp
 go
+-- 17/3/2022
+-- get hocphino by idlophoc and thang
+alter proc usp_get_hocphino_by_idlophoc_thang @malh int, @thang date
+as
+	select hs.HoLot, hs.Ten, lhdk.NgayBatDau, lhdk.NgayKetThuc, hpno.*
+	from HocPhiNo hpno
+	join LopHocDangKy lhdk on lhdk.MaDangky = hpno.MaDangKy
+	join HocSinh hs on lhdk.MaHocSinh = hs.MaHS
+	where DATEDIFF(MONTH,hpno.ThangNo, @thang) = 0 and lhdk.MaLopHoc = @malh
+go
+-- create hocphino
+create proc usp_create_hocphino
+	@thangno date,
+	@tienno int,
+	@madk int
+as
+	if not exists (select * from LopHocDangKy where MaDangky = @madk)
+	begin
+		RAISERROR(N'Lớp học đăng ký không tồn tại trong cơ sở dữ liệu!',16,1)
+		return
+	end
+	SET IDENTITY_INSERT HocPhiNo ON
+	declare @i int = 1
+	while exists (select * from HocPhiNo where MaDangky = @madk and MaNo = @i)
+	begin
+		set @i=@i+1
+	end
+	insert into HocPhiNo(MaNo, ThangNo, TienNo, MaDangKy)
+	values (@i, @thangno, @tienno, @madk)
+	SET IDENTITY_INSERT HocPhiNo OFF
+go
+-- update hocphino
+create proc usp_update_hocphino
+	@mano int,
+	@thangno date,
+	@tienno int,
+	@madk int
+as
+	if not exists (select * from LopHocDangKy where MaDangky = @madk)
+	begin
+		RAISERROR(N'Lớp học đăng ký không tồn tại trong cơ sở dữ liệu!',16,1)
+		return
+	end
+	update HocPhiNo
+	set ThangNo =  @thangno, TienNo = @tienno
+	where MaDangKy =  @madk and MaNo = @mano
+go
+-- delete hocphino
+create proc usp_delete_hocphino
+	@mano int,
+	@madk int
+as
+	if not exists (select * from LopHocDangKy where MaDangky = @madk)
+	begin
+		RAISERROR(N'Lớp học đăng ký không tồn tại trong cơ sở dữ liệu!',16,1)
+		return
+	end
+	delete from HocPhiNo
+	where MaDangKy =  @madk and MaNo = @mano
+go
+-- get hocphi by madk and thang
+create proc usp_get_hocphi_by_madk_thang @madk int, @thang date
+as
+	select *
+	from HocPhi hp
+	where DATEDIFF(MONTH,hp.ThangDong, @thang) = 0 and hp.MaDangKy = @madk
+go
+-- get hocphi by mahs
+alter proc usp_get_hocphi_by_mahs @mahs int
+as
+	select gv.DanhXung, gv.TenGiaoVien, hp.*, lh.TenLopHoc
+	from HocPhi hp
+	join LopHocDangKy lhdk on lhdk.MaDangky = hp.MaDangKy
+	join LopHoc lh on lhdk.MaLopHoc = lh.MaLopHoc
+	join GiaoVien gv on lh.MaGiaoVien = gv.MaGiaovien
+	where lhdk.MaHocSinh = @mahs
+go
+-- get hocphi by date and idgiaovien
+create proc usp_get_hocphi_by_ngay_magv @ngay date, @magv int
+as
+	select gv.DanhXung, gv.TenGiaoVien, hp.*, lh.TenLopHoc, hs.HoLot, hs.Ten
+	from HocPhi hp
+	join LopHocDangKy lhdk on lhdk.MaDangky = hp.MaDangKy
+	join LopHoc lh on lhdk.MaLopHoc = lh.MaLopHoc
+	join GiaoVien gv on lh.MaGiaoVien = gv.MaGiaovien
+	join HocSinh hs on lhdk.MaHocSinh = hs.MaHS
+	where DATEDIFF(DAY,hp.ThoiGianDong, @ngay) = 0 and gv.MaGiaovien = @magv
+go

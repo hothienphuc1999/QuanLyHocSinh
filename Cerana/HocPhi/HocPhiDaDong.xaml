@@ -1,0 +1,44 @@
+﻿<Window x:Class="Cerana.HocPhi.HocPhiDaDong"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cerana.HocPhi"
+        xmlns:helper="clr-namespace:BUS.Helper;assembly=BUS"
+        mc:Ignorable="d"
+        Title="Học Phí Đã Đóng" Height="450" Width="800">
+    <Window.Resources>
+        <helper:BoolToStateConverter x:Key="boolToStateConverter"/>
+        <helper:CurrencyFormatting x:Key="currencyFormatting"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <DataGrid Margin="5" Name="TuitionDataGrid" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn  Header="Giáo Viên"  IsReadOnly="True">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="LopHocDangKy.Lophoc.Giaovien.DanhXung"/>
+                            <Binding Path="LopHocDangKy.Lophoc.Giaovien.TenGiaoVien" />
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                <DataGridTextColumn  Header="Lớp" Binding="{Binding LopHocDangKy.Lophoc.TenLopHoc}" IsReadOnly="True"/>
+                <DataGridTextColumn  Header="Số tiền" Binding="{Binding GiaTien,Converter={StaticResource currencyFormatting}}" IsReadOnly="True"/>
+                <DataGridTextColumn  Header="Tháng" Binding="{Binding ThangDong, StringFormat=MM/yyyy}" IsReadOnly="True"/>
+                <DataGridTextColumn  Header="Thời Gian Đóng" Binding="{Binding ThoiGianDong}" IsReadOnly="True"/>
+                <DataGridTextColumn  Header="Người Thu" Binding="{Binding NguoiThu}" IsReadOnly="True"/>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Xóa học phí" Name="XoaHocPhi" Foreground="Red" Click="XoaHocPhi_Click"></MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+    </Grid>
+</Window>

@@ -44,3 +44,13 @@ C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\LopHocDangKy\LopHocDaDan
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\LopHocDangKy\LopHocDaDangKy.baml
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\HocPhi\DongHocPhi.g.cs
 C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\HocPhi\DongHocPhi.baml
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\HocPhiNo\HPNo.g.cs
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\LuongGiaoVien\LuongGV.g.cs
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\HocPhiNo\HPNo.baml
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\LuongGiaoVien\LuongGV.baml
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\HocPhiNo\ThemHocPhiNo.g.cs
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\HocPhiNo\ThemHocPhiNo.baml
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\HocPhi\HocPhiDaDong.g.cs
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\HocPhi\HocPhiDaDong.baml
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\HocPhiNo\HocPhiDangNo.g.cs
+C:\Users\THIENPHUC\source\repos\Cerana\Cerana\obj\Debug\HocPhiNo\HocPhiDangNo.baml

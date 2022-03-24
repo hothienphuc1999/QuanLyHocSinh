@@ -7,7 +7,7 @@
         xmlns:helper="clr-namespace:BUS.Helper;assembly=BUS"
         xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
         mc:Ignorable="d"
-        Title="Quản Lý Học Sinh - v0.1.3" Height="500" Width="900">
+        Title="Quản Lý Học Sinh - v0.1.4" Height="500" Width="900">
 
     <Window.Resources>
         <helper:BoolToStateConverter x:Key="boolToStateConverter"/>
@@ -55,12 +55,24 @@
                 </Style>
             </TabControl.ItemContainerStyle>
             <TabItem Name="HomePage">
-                <StackPanel>
-                    <Label>Trang Chủ</Label>
-                    <Button Width="50" HorizontalAlignment="Left" Padding="0" ToolTip="Làm mới">
-                        <wpf:PackIcon Kind="Refresh"/>
-                    </Button>
-                </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" TextAlignment="Center" FontSize="24" Margin="0 5">Trang chủ</TextBlock>
+                    <StackPanel Grid.Row="1" Grid.Column="0">
+                        <Button x:Name="TeacherManagementButton" Click="TeacherManagementButton_Click" Margin="5">Thông Tin Giáo Viên</Button>
+                        <Button x:Name="DeptManagementButton" Click="DeptManagementButton_Click" Margin="5">Nợ Học Phí</Button>
+                    </StackPanel>
+                </Grid>
             </TabItem>
             <TabItem Name="StudentPage" IsSelected="True">
                 <DockPanel>
@@ -308,6 +320,17 @@
                     <DockPanel>
                         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                             <DatePicker Margin="5"  Name="MonthTuitionPicker" Loaded="MonthTuitionPicker_Loaded" SelectedDateChanged="MonthTuitionPicker_SelectedDateChanged"/>
+                            <ComboBox Name="TeacherTuitionComboBox" Width="100" Margin="5" Loaded="TeacherTuitionComboBox_Loaded"
+                                      SelectionChanged="TeacherTuitionComboBox_SelectionChanged">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="5 0" Text="{Binding DanhXung}"></TextBlock>
+                                            <TextBlock Text="{Binding TenGiaoVien}"></TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                             <Button Style="{DynamicResource MaterialDesignFlatButton}" Margin="5 0" ToolTip="Làm mới"
                                     Name="RefreshTuitionButton" Click="RefreshTuitionButton_Click">
                                 <wpf:PackIcon Kind="Refresh"></wpf:PackIcon>
@@ -315,6 +338,7 @@
                         </StackPanel>
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
                             <TextBlock Margin="5 0" FontWeight="DemiBold" Text="{Binding ElementName=TuitionDataGrid, Path=ItemsSource.Count, StringFormat='Số lượng: {0}'}"/>
+                            <TextBlock Margin="5 0" FontWeight="DemiBold" Name="TotalOfDayTextbox"/>
                         </StackPanel>
                         <DataGrid Margin="5" Name="TuitionDataGrid" AutoGenerateColumns="False">
                             <DataGrid.Columns>
@@ -331,6 +355,7 @@
                                 </DataGridTextColumn>
                                 <DataGridTextColumn  Header="Số tiền" Binding="{Binding GiaTien,Converter={StaticResource currencyFormatting}}" IsReadOnly="True"/>
                                 <DataGridTextColumn  Header="Tháng" Binding="{Binding ThangDong, StringFormat=MM/yyyy}" IsReadOnly="True"/>
+                                <DataGridTextColumn  Header="Thời Gian Đóng" Binding="{Binding ThoiGianDong, StringFormat=dd/MM/yyyy hh:mm:ss}" IsReadOnly="True"/>
                             </DataGrid.Columns>
                             <DataGrid.ContextMenu>
                                 <ContextMenu>

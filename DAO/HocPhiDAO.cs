@@ -85,6 +85,134 @@ namespace DAO
             }
             return result;
         }
+        static public List<HocPhiDTO> GetHocPhiByIDGiaoVien(DateTime ngay, int magv)
+        {
+            DataConnection dataConnection = new DataConnection();
+            List<HocPhiDTO> result = null;
+            try
+            {
+                dataConnection.Connect();
+                DataTable dt = dataConnection.Select(
+                    CommandType.StoredProcedure,
+                    "usp_get_hocphi_by_ngay_magv",
+                    new SqlParameter { ParameterName = "@ngay", Value = ngay },
+                    new SqlParameter { ParameterName = "@magv", Value = magv });
+                if (dt != null)
+                {
+                    result = new List<HocPhiDTO>();
+                    foreach (DataRow r in dt.Rows)
+                    {
+                        HocPhiDTO hocphi = new HocPhiDTO(
+                            (int)r["MaHocPhi"],
+                            (DateTime)r["ThangDong"],
+                            (int)r["GiaTien"],
+                            (DateTime)r["ThoiGianDong"],
+                            r["NguoiDong"].ToString(),
+                            r["NguoiThu"].ToString(),
+                            r["DongTai"].ToString(),
+                            r["SoBienLaiGiay"].ToString(),
+                            string.IsNullOrEmpty(r["ThoiGianChinhSua"].ToString()) ? (DateTime?)null : DateTime.Parse(r["ThoiGianChinhSua"].ToString()),
+                            (int)r["MaDangKy"],
+                            new LopHocDangKyDTO((int)r["MaDangKy"], null, null, true, -1, -1, "", new HocSinhDTO(-1, r["HoLot"].ToString(), r["Ten"].ToString(), "", "", "", "", false, null), new LopHocDTO(-1, r["TenLopHoc"].ToString(), -1, "", "", new GiaoVienDTO(-1, r["DanhXung"].ToString(), r["TenGiaoVien"].ToString(), "", null, null), null, null, null), 0, 0));
+                        result.Add(hocphi);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                dataConnection.Disconnect();
+            }
+            return result;
+        }
+        static public List<HocPhiDTO> GetHocPhiByIDHocSinh(int mahs)
+        {
+            DataConnection dataConnection = new DataConnection();
+            List<HocPhiDTO> result = null;
+            try
+            {
+                dataConnection.Connect();
+                DataTable dt = dataConnection.Select(
+                    CommandType.StoredProcedure,
+                    "usp_get_hocphi_by_mahs",
+                    new SqlParameter { ParameterName = "@mahs", Value = mahs });
+                if (dt != null)
+                {
+                    result = new List<HocPhiDTO>();
+                    foreach (DataRow r in dt.Rows)
+                    {
+                        HocPhiDTO hocphi = new HocPhiDTO(
+                            (int)r["MaHocPhi"],
+                            (DateTime)r["ThangDong"],
+                            (int)r["GiaTien"],
+                            (DateTime)r["ThoiGianDong"],
+                            r["NguoiDong"].ToString(),
+                            r["NguoiThu"].ToString(),
+                            r["DongTai"].ToString(),
+                            r["SoBienLaiGiay"].ToString(),
+                            string.IsNullOrEmpty(r["ThoiGianChinhSua"].ToString()) ? (DateTime?)null : DateTime.Parse(r["ThoiGianChinhSua"].ToString()),
+                            (int)r["MaDangKy"],
+                            new LopHocDangKyDTO((int)r["MaDangKy"], null, null, true, -1, -1, "", null, new LopHocDTO(-1, r["TenLopHoc"].ToString(), -1, "", "", new GiaoVienDTO(-1, r["DanhXung"].ToString(), r["TenGiaoVien"].ToString(), "", null, null), null, null, null), 0, 0));
+                        result.Add(hocphi);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                dataConnection.Disconnect();
+            }
+            return result;
+        }
+        static public List<HocPhiDTO> GetHocPhiByIDDangKyAndMonth(int madk, DateTime thang)
+        {
+            DataConnection dataConnection = new DataConnection();
+            List<HocPhiDTO> result = null;
+            try
+            {
+                dataConnection.Connect();
+                DataTable dt = dataConnection.Select(
+                    CommandType.StoredProcedure,
+                    "usp_get_hocphi_by_madk_thang",
+                    new SqlParameter { ParameterName = "@madk", Value = madk },
+                    new SqlParameter { ParameterName = "@thang", Value = thang });
+                if (dt != null)
+                {
+                    result = new List<HocPhiDTO>();
+                    foreach (DataRow r in dt.Rows)
+                    {
+                        HocPhiDTO hocphi = new HocPhiDTO(
+                            (int)r["MaHocPhi"],
+                            (DateTime)r["ThangDong"],
+                            (int)r["GiaTien"],
+                            (DateTime)r["ThoiGianDong"],
+                            r["NguoiDong"].ToString(),
+                            r["NguoiThu"].ToString(),
+                            r["DongTai"].ToString(),
+                            r["SoBienLaiGiay"].ToString(),
+                            string.IsNullOrEmpty(r["ThoiGianChinhSua"].ToString()) ? (DateTime?)null : DateTime.Parse(r["ThoiGianChinhSua"].ToString()),
+                            (int)r["MaDangKy"],
+                            null);
+                        result.Add(hocphi);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                dataConnection.Disconnect();
+            }
+            return result;
+        }
         static public int UpdateHocPhi(HocPhiDTO hocphi)
         {
             DataConnection dataConnection = new DataConnection();

@@ -1,0 +1,30 @@
+﻿<Window x:Class="Cerana.HocPhiNo.ThemHocPhiNo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cerana.HocPhiNo"
+        xmlns:helper="clr-namespace:BUS.Helper;assembly=BUS"
+        mc:Ignorable="d"
+        Title="Thêm Học Phí Nợ" Height="450" Width="800">
+    <Window.Resources>
+        <helper:BoolToStateConverter x:Key="boolToStateConverter"/>
+        <helper:CurrencyFormatting x:Key="currencyFormatting"/>
+    </Window.Resources>
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Center">
+            <Button x:Name="SaveHocPhiNoButton" Click="SaveHocPhiNoButton_Click" Width="70" Margin="5">Lưu</Button>
+        </StackPanel>
+        <DataGrid Margin="5" Name="DeptDataGrid" AutoGenerateColumns="False" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn  Header="Họ lót" Binding="{Binding LopHocDangKy.Hocsinh.HoLot}" IsReadOnly="True"/>
+                <DataGridTextColumn  Header="Tên" Binding="{Binding LopHocDangKy.Hocsinh.Ten}" IsReadOnly="True"/>
+                <DataGridTextColumn  Header="Ngày Vào Học" Binding="{Binding LopHocDangKy.NgayBatDau, StringFormat=dd/MM/yyyy}" IsReadOnly="True"/>
+                <DataGridTextColumn  Header="Ngày Nghỉ Học" Binding="{Binding LopHocDangKy.NgayKetThuc, StringFormat=dd/MM/yyyy}" IsReadOnly="True"/>
+                <DataGridTextColumn  Header="Miễn Giảm" Binding="{Binding LopHocDangKy.Miengiam}" IsReadOnly="True"/>
+                <DataGridTextColumn  Header="Đã Đóng" Binding="{Binding LopHocDangKy.SoTienDong,Converter={StaticResource currencyFormatting}}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Tiền Nợ" Binding="{Binding TienNo, Mode=TwoWay}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>
