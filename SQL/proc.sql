@@ -214,7 +214,7 @@ as
 	join HocSinh hs on lhdk.MaHocSinh = hs.MaHS
 	left join (select MaDangKy, SUM(TienNo) as SoTienNo from HocPhiNo group by MaDangKy) hpn on lhdk.MaDangky = hpn.MaDangKy
 	left join (select MaDangKy, SUM(GiaTien) as SoTienDong from HocPhi where ThangDong = @thang group by MaDangKy) hp on lhdk.MaDangky = hp.MaDangKy
-	where lhdk.MaLopHoc = @malophoc and DATEDIFF(month, lhdk.NgayBatDau, @thang) >= 0 and (lhdk.TinhTrang = 1 or DATEDIFF(month, lhdk.NgayKetThuc, @thang) = 0)
+	where lhdk.MaLopHoc = @malophoc and DATEDIFF(month, lhdk.NgayBatDau, @thang) >= 0 and (lhdk.TinhTrang = 1 or DATEDIFF(month, lhdk.NgayKetThuc, @thang) <= 0)
 go
 -- 12/2/2022
 -- create lhdk
@@ -329,7 +329,7 @@ as
 	from LopHocDangKy lhdk 
 	join LopHoc lh on lhdk.MaLopHoc = lh.MaLopHoc
 	join GiaoVien gv on lh.MaGiaoVien = gv.MaGiaovien
-	where lhdk.MaHocSinh = @mahs and DATEDIFF(month, lhdk.NgayBatDau, @thang) >= 0 and (lhdk.TinhTrang = 1 or DATEDIFF(month, lhdk.NgayKetThuc, @thang) = 0)
+	where lhdk.MaHocSinh = @mahs and DATEDIFF(month, lhdk.NgayBatDau, @thang) >= 0 and (lhdk.TinhTrang = 1 or DATEDIFF(month, lhdk.NgayKetThuc, @thang) <= 0)
 go
 -- hocphino
 -- get hocphi no by mahs

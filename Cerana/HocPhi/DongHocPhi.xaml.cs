@@ -24,6 +24,7 @@ namespace Cerana.HocPhi
     {
         int mahocsinh = -1;
         List<HocPhiDTO> dshocphi = new List<HocPhiDTO>();
+        List<HocPhiNoDTO> hpnoSelected = new List<HocPhiNoDTO>();
         public DongHocPhi(int mahs)
         {
             InitializeComponent();
@@ -47,11 +48,16 @@ namespace Cerana.HocPhi
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             int rowAffected = 0;
+            int rowDeleted = 0;
             foreach (HocPhiDTO hocphi in dshocphi)
             {
                 rowAffected += HocPhiBUS.CreateHocPhi(hocphi);
             }
-            MessageBox.Show($"{rowAffected} học phí đã được lưu");
+            foreach (HocPhiNoDTO hpno in hpnoSelected)
+            {
+                rowDeleted += HocPhiNoBUS.DeleteHocPhiNo(hpno.MaDangKy, hpno.MaNo);
+            }    
+            MessageBox.Show($"{rowAffected} học phí đã được lưu, {rowDeleted} học phí nợ đã xóa");
         }
 
         private void LoaiComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -150,6 +156,7 @@ namespace Cerana.HocPhi
                 {
                     HocPhiNoDTO hocphino = NoComboBox.SelectedItem as HocPhiNoDTO;
                     HocPhiDTO hocphi = new HocPhiDTO(-1, hocphino.ThangNo, hocphino.TienNo, DatePicker.SelectedDate.Value, ((ComboBoxItem)NguoiDongCBB.SelectedItem).Content.ToString(), ((ComboBoxItem)NguoiThuCBB.SelectedItem).Content.ToString(), ((ComboBoxItem)DongTaiCBB.SelectedItem).Content.ToString(), MaBienLaiTextBox.Text, null, hocphino.LopHocDangKy.MaDangKy, hocphino.LopHocDangKy);
+                    hpnoSelected.Add(hocphino);
                     dshocphi.Add(hocphi);
                 }
                 else
@@ -166,7 +173,13 @@ namespace Cerana.HocPhi
         {
             if (HocPhiListBox.SelectedItem != null)
             {
-                dshocphi.Remove(HocPhiListBox.SelectedItem as HocPhiDTO);
+                HocPhiDTO hocphi = HocPhiListBox.SelectedItem as HocPhiDTO;
+                int hpindex = hpnoSelected.IndexOf(hpnoSelected.Where(p => p.MaDangKy == hocphi.MaDangKy && p.ThangNo == hocphi.ThangDong).FirstOrDefault());
+                if (hpindex > -1)
+                {
+                    hpnoSelected.RemoveAt(hpindex);
+                }
+                dshocphi.Remove(hocphi);
                 HocPhiListBox.ItemsSource = null;
                 HocPhiListBox.ItemsSource = dshocphi;
                 TinhTongHocPhi();

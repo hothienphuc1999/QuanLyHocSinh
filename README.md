@@ -6,3 +6,4 @@
 # NOTE
 - v0.1.2: LopHoc utilities are not installed.
 - v0.1.3: fix LopHoc, HocPhi, HocPhiNo, ChiTietLuong datatables in SQL
+- v0.1.4.1: fix DongHocPhiWindow
